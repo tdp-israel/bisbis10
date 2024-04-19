@@ -27,7 +27,7 @@ public class RestaurantController {
 
     // TODO
     @GetMapping
-    public List<Restaurant> getRestaurantsByCuisine(@RequestParam("queryParam") String cuisine) {
+    public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine) {
         return new ArrayList<Restaurant>();
     }
 
