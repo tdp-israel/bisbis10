@@ -29,7 +29,7 @@ public class RestaurantService {
     }
 
     public void addRestaurant(Restaurant restaurant) {
-
+        restaurantRepository.save(restaurant);
     }
 
     public void updateRestaurant(Long restaurantId, 
