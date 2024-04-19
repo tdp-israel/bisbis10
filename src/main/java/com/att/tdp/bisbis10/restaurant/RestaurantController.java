@@ -17,32 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/restaurants")
 public class RestaurantController {
     
+    // TODO
     @GetMapping
     public List<Restaurant> getRestaurants() {
         return new ArrayList<Restaurant>();
     }
 
+    // TODO
     @GetMapping
     public List<Restaurant> getRestaurantsByCuisine(@RequestParam("queryParam") String cuisine) {
         return new ArrayList<Restaurant>();
     }
 
+    // TODO
     @GetMapping("/{id}")
-    public List<Restaurant> getRestaurant(@PathVariable("id") Long restaurantId) {
-        return new ArrayList<Restaurant>();
+    public Restaurant getRestaurant(@PathVariable("id") Long restaurantId) {
+        return new Restaurant();
     }
 
+    // TODO
     @PostMapping
-    public void addRestaurant(Restaurant restaurant) {
+    public void addRestaurant(@RequestBody Restaurant restaurant) {
 
     }
 
+    // TODO
     @GetMapping("/{id}")
     public void updateRestaurant(@PathVariable("id") Long restaurantId, 
                                  @RequestBody List<String> cuisines) {
         
     }
 
+    // TODO
     @DeleteMapping("/{id}")
     public void deleteRestaurant(@PathVariable("id") Long restaurantId) {
 
