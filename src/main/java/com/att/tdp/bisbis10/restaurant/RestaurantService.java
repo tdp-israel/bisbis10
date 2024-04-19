@@ -3,10 +3,19 @@ package com.att.tdp.bisbis10.restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RestaurantService {
+
+    private final RestaurantRepository restaurantRepository;
+
+    @Autowired
+    public RestaurantService(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository = restaurantRepository;
+    }
+
     public List<Restaurant> getRestaurants() {
         return new ArrayList<Restaurant>();
     }
