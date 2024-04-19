@@ -2,7 +2,26 @@ package com.att.tdp.bisbis10.restaurant;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class Restaurant {
+    @Id
+    @SequenceGenerator(
+        name = "restaurant_sequence",
+        sequenceName = "restaurant_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "student_sequeunce"
+    )
     private Long id;
     private String name;
     private float averageRating;
