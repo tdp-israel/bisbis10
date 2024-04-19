@@ -27,12 +27,6 @@ public class RestaurantController {
 
     // TODO
     @GetMapping
-    public List<Restaurant> getRestaurants() {
-        return new ArrayList<Restaurant>();
-    }
-
-    // TODO
-    @GetMapping
     public List<Restaurant> getRestaurantsByCuisine(@RequestParam("queryParam") String cuisine) {
         return new ArrayList<Restaurant>();
     }
@@ -50,7 +44,7 @@ public class RestaurantController {
     }
 
     // TODO
-    @GetMapping("/{id}")
+    @PutMapping("/{id}")
     public void updateRestaurant(@PathVariable("id") Long restaurantId, 
                                  @RequestBody List<String> cuisines) {
         
