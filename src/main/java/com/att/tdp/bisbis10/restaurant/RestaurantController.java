@@ -2,6 +2,7 @@ package com.att.tdp.bisbis10.restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,8 +47,8 @@ public class RestaurantController {
     // TODO
     @PutMapping("/{id}")
     public void updateRestaurant(@PathVariable("id") Long restaurantId, 
-                                 @RequestBody List<String> cuisines) {
-        
+                                 @RequestBody Map<String, List<String>> requestBody) {
+        List<String> cuisines = requestBody.get("cuisines");
     }
 
     // TODO
