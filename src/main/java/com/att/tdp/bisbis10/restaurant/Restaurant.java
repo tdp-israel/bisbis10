@@ -1,6 +1,12 @@
 package com.att.tdp.bisbis10.restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisineRespository;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table
@@ -26,6 +33,7 @@ public class Restaurant {
     private String name;
     private float averageRating;
     private boolean isKosher;
+    @Transient
     private List<String> cuisines;
 
     public Restaurant() {
@@ -44,7 +52,7 @@ public class Restaurant {
         this.averageRating = averageRating;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
-    }
+    }        
 
 
 

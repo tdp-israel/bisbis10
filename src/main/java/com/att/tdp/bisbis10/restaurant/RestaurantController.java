@@ -28,10 +28,17 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    // TODO
     @GetMapping
     public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine) {
-        return new ArrayList<Restaurant>();
+        List<Restaurant> restaurants;
+        if(cuisine != null) {
+            restaurants = restaurantService.getRestaurantsByCuisine(cuisine);
+        }
+        else {
+            restaurants = restaurantService.getRestaurants();
+        }
+
+        return restaurants;
     }
 
     // TODO
