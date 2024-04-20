@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     
-    // @Query("SELECT r, ARRAY_AGG(rc.restaurantCuisineId.cuisine) WITHIN GROUP (ORDER BY NULL) AS cuisines FROM Restaurant r LEFT JOIN RestaurantCuisine rc ON r.id = rc.restaurantCuisineId.restaurantId GROUP BY r")
-    // public List<Restaurant> findAllRestaurants();
-
-    // @Query("SELECT r, ARRAY_AGG(rc.restaurantCuisineId.cuisine) WITHIN GROUP (ORDER BY NULL) AS cuisines FROM Restaurant r LEFT JOIN RestaurantCuisine rc ON r.id = rc.restaurantCuisineId.restaurantId GROUP BY r HAVING ?1 = ANY (SELECT rcc.restaurantCuisineId.cuisine FROM RestaurantCuisine rcc WHERE rcc.restaurantCuisineId.restaurantId = r.id)")
-    // public List<Restaurant> findRestaurantsByCausine(String cuisine);
+    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.cuisines WHERE ?1 IN (SELECT cuisine FROM r.cuisines)")
+    public List<Restaurant> findRestaurantsByCausine(String cuisine);
 }

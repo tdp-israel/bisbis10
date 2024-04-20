@@ -41,16 +41,14 @@ public class RestaurantCuisine {
     }
 
 
-
     @Override
     public String toString() {
         return "RestaurantCuisine{" +
             " id='" + getId() + "'" +
             ", cuisine='" + getCuisine() + "'" +
-            ", restaurantId='" + getRestaurant().getId() + "'" +
+            ", restaurantId='" + getRestaurant() + "'" +
             "}";
     }
-
 
     public Long getId() {
         return this.id;
@@ -68,8 +66,8 @@ public class RestaurantCuisine {
         this.cuisine = cuisine;
     }
 
-    public Restaurant getRestaurant() {
-        return this.restaurant;
+    public Long getRestaurant() {
+        return this.restaurant.getId();
     }
 
     public void setRestaurant(Restaurant restaurant) {

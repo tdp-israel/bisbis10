@@ -28,9 +28,8 @@ public class RestaurantService {
     }
 
     public List<Restaurant> getRestaurantsByCuisine(String cuisine) {
-        System.out.println(cuisine);
-        // List<Restaurant> restaurants = restaurantRepository.findRestaurantsByCausine(cuisine);
-        return new ArrayList<>();
+        List<Restaurant> restaurants = restaurantRepository.findRestaurantsByCausine(cuisine);
+        return restaurants;
     }
     
     public Restaurant getRestaurantById(Long restaurantId) {
