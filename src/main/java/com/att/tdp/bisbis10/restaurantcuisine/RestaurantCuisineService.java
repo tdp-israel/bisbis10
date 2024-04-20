@@ -18,4 +18,8 @@ public class RestaurantCuisineService {
     public void addRestaurantCuisine(RestaurantCuisine restaurantCuisine) {
         this.restaurantCuisineRespository.save(restaurantCuisine);
     }
+
+    public void deleteRestaurantCuisine(Long restaurantCuisineId) {
+        this.restaurantCuisineRespository.deleteById(restaurantCuisineId);
+    }
 }

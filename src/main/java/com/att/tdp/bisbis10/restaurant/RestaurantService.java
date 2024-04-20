@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,10 @@ public class RestaurantService {
     }
 
     public void deleteRestaurant(Long restaurantId) {
-
+        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+        // TODO
+        // Throw error if Restaurant does not exist
+        restaurant.get().getCuisines().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
+        restaurantRepository.deleteById(restaurantId);
     }
 }

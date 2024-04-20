@@ -61,6 +61,6 @@ public class RestaurantController {
     // TODO
     @DeleteMapping("/{id}")
     public void deleteRestaurant(@PathVariable("id") Long restaurantId) {
-
+        restaurantService.deleteRestaurant(restaurantId);
     }
 }
