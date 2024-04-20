@@ -15,11 +15,6 @@ public class RestaurantCuisineService {
         this.restaurantCuisineRespository = restaurantCuisineRespository;
     }
 
-    public List<String> getCuisinesByRestaurantId(Long restaurantId) {
-        return new ArrayList<>();
-        // return restaurantCuisineRespository.findCuisineByRestaurantId(restaurantId);
-    }
-
     public void addRestaurantCuisine(RestaurantCuisine restaurantCuisine) {
         this.restaurantCuisineRespository.save(restaurantCuisine);
     }

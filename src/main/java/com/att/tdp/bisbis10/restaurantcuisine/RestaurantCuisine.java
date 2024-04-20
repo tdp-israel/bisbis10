@@ -1,51 +1,78 @@
 package com.att.tdp.bisbis10.restaurantcuisine;
 
-import jakarta.persistence.EmbeddedId;
+import com.att.tdp.bisbis10.restaurant.Restaurant;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
-@Table
 public class RestaurantCuisine {
-    @EmbeddedId
-    private RestaurantCuisineId restaurantCuisineId;
-
-    @Transient
-    private Long restaurantId;
-    @Transient
+    @Id
+    @SequenceGenerator(
+        name = "restaurant_cuisine_sequeunce",
+        sequenceName = "restaurant_cuisine_sequeunce",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "restaurant_cuisine_sequeunce"
+    )
+    private Long id;
     private String cuisine;
+
+    @ManyToOne
+    private Restaurant restaurant;
 
     public RestaurantCuisine() {
     }
 
-    public RestaurantCuisine(Long restaurantId, String cuisine) {
-        this.restaurantCuisineId = new RestaurantCuisineId(restaurantId, cuisine);
+    public RestaurantCuisine(Long id, String cuisine) {
+        this.id = id;
+        this.cuisine = cuisine;
     }
+
+    public RestaurantCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+
 
 
     @Override
     public String toString() {
-        return "RestaurantCuisine {" +
-            " restaurantId='" + getRestaurantId() + "'" +
+        return "RestaurantCuisine{" +
+            " id='" + getId() + "'" +
             ", cuisine='" + getCuisine() + "'" +
+            ", restaurantId='" + getRestaurant() + "'" +
             "}";
     }
 
-    public Long getRestaurantId() {
-        return this.restaurantCuisineId.getRestaurantId();
+
+    public Long getId() {
+        return this.id;
     }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantCuisineId.setRestaurantId(restaurantId);;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCuisine() {
-        return this.restaurantCuisineId.getCuisine();
+        return this.cuisine;
     }
 
     public void setCuisine(String cuisine) {
-        this.restaurantCuisineId.setCuisine(cuisine);
+        this.cuisine = cuisine;
     }
 
+    public Restaurant getRestaurant() {
+        return this.restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }

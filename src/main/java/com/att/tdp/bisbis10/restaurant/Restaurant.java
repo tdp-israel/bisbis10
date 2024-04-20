@@ -2,6 +2,8 @@ package com.att.tdp.bisbis10.restaurant;
 
 import java.util.List;
 
+import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisine;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +12,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-
 @Entity
 @Table
 public class Restaurant {
@@ -22,19 +23,20 @@ public class Restaurant {
     )
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
-        generator = "student_sequeunce"
+        generator = "restaurant_sequeunce"
     )
     private Long id;
     private String name;
     private float averageRating;
     private boolean isKosher;
-    @OneToMany
-    private List<String> cuisines;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantCuisine> cuisines;
 
     public Restaurant() {
     }
 
-    public Restaurant(Long id, String name, float averageRating, boolean isKosher, List<String> cuisines) {
+    public Restaurant(Long id, String name, float averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.id = id;
         this.name = name;
         this.averageRating = averageRating;
@@ -42,7 +44,7 @@ public class Restaurant {
         this.cuisines = cuisines;
     }
 
-    public Restaurant(String name, float averageRating, boolean isKosher, List<String> cuisines) {
+    public Restaurant(String name, float averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.name = name;
         this.averageRating = averageRating;
         this.isKosher = isKosher;
@@ -98,11 +100,11 @@ public class Restaurant {
         this.isKosher = isKosher;
     }
 
-    public List<String> getCuisines() {
+    public List<RestaurantCuisine> getCuisines() {
         return this.cuisines;
     }
 
-    public void setCuisines(List<String> cuisines) {
+    public void setCuisines(List<RestaurantCuisine> cuisines) {
         this.cuisines = cuisines;
     }
 }

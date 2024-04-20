@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisine;
 import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisineService;
+
 
 @Service
 public class RestaurantService {
@@ -38,13 +38,9 @@ public class RestaurantService {
     }
 
     public void addRestaurant(Restaurant restaurant) {
+        restaurant.getCuisines().forEach(cuisine -> cuisine.setRestaurant(restaurant));
         restaurantRepository.save(restaurant);
-        System.out.println(restaurant);
-        // for (String cuisine : restaurant.getCuisines()) {
-        //     System.out.println(cuisine);
-        //     RestaurantCuisine restaurantCuisine = new RestaurantCuisine(restaurant.getId(), cuisine);
-        //     restaurantCuisineService.addRestaurantCuisine(restaurantCuisine);
-        // }
+        restaurant.getCuisines().forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(cuisine));
     }
 
     public void updateRestaurant(Long restaurantId, 
