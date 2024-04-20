@@ -40,10 +40,9 @@ public class RestaurantController {
         return restaurants;
     }
 
-    // TODO
     @GetMapping("/{id}")
     public Restaurant getRestaurant(@PathVariable("id") Long restaurantId) {
-        return new Restaurant();
+        return restaurantService.getRestaurantById(restaurantId);
     }
 
     @PostMapping

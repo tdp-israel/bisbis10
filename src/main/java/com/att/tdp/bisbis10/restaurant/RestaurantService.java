@@ -2,6 +2,7 @@ package com.att.tdp.bisbis10.restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,10 @@ public class RestaurantService {
     }
     
     public Restaurant getRestaurantById(Long restaurantId) {
-        return new Restaurant();
+        Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+        // TODO
+        // Throw Error if restaurant does not exist!
+        return restaurant.get();
     }
 
     public void addRestaurant(Restaurant restaurant) {
