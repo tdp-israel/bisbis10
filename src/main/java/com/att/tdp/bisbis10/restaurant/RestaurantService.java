@@ -1,5 +1,6 @@
 package com.att.tdp.bisbis10.restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,9 @@ public class RestaurantService {
     }
 
     public List<Restaurant> getRestaurantsByCuisine(String cuisine) {
-        List<Restaurant> restaurants = restaurantRepository.findAll();
-        return restaurants;
+        System.out.println(cuisine);
+        // List<Restaurant> restaurants = restaurantRepository.findRestaurantsByCausine(cuisine);
+        return new ArrayList<>();
     }
     
     public Restaurant getRestaurantById(Long restaurantId) {
@@ -38,11 +40,11 @@ public class RestaurantService {
     public void addRestaurant(Restaurant restaurant) {
         restaurantRepository.save(restaurant);
         System.out.println(restaurant);
-        for (String cuisine : restaurant.getCuisines()) {
-            System.out.println(cuisine);
-            RestaurantCuisine restaurantCuisine = new RestaurantCuisine(restaurant.getId(), cuisine);
-            restaurantCuisineService.addRestaurantCuisine(restaurantCuisine);
-        }
+        // for (String cuisine : restaurant.getCuisines()) {
+        //     System.out.println(cuisine);
+        //     RestaurantCuisine restaurantCuisine = new RestaurantCuisine(restaurant.getId(), cuisine);
+        //     restaurantCuisineService.addRestaurantCuisine(restaurantCuisine);
+        // }
     }
 
     public void updateRestaurant(Long restaurantId, 
