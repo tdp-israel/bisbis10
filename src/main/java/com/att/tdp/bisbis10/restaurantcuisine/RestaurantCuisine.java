@@ -47,7 +47,7 @@ public class RestaurantCuisine {
         return "RestaurantCuisine{" +
             " id='" + getId() + "'" +
             ", cuisine='" + getCuisine() + "'" +
-            ", restaurantId='" + getRestaurant() + "'" +
+            ", restaurantId='" + getRestaurant().getId() + "'" +
             "}";
     }
 
