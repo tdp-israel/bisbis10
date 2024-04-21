@@ -51,14 +51,13 @@ public class RestaurantController {
         restaurantService.addRestaurant(restaurant);
     }
 
-    // TODO
     @PutMapping("/{id}")
     public void updateRestaurant(@PathVariable("id") Long restaurantId, 
                                  @RequestBody Map<String, List<String>> requestBody) {
         List<String> cuisines = requestBody.get("cuisines");
+        restaurantService.updateRestaurantCuisines(restaurantId, cuisines);
     }
 
-    // TODO
     @DeleteMapping("/{id}")
     public void deleteRestaurant(@PathVariable("id") Long restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);

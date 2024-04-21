@@ -1,14 +1,13 @@
 package com.att.tdp.bisbis10.restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisine;
 import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisineService;
 
 
@@ -48,9 +47,14 @@ public class RestaurantService {
         restaurant.getCuisines().forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(cuisine));
     }
 
-    public void updateRestaurant(Long restaurantId, 
+    public void updateRestaurantCuisines(Long restaurantId, 
                                  List<String> cuisines) {
-        
+        Optional<Restaurant> restaurantExists = restaurantRepository.findById(restaurantId);
+        // TODO
+        // Throw Error if restaurant does not exist!
+        Restaurant restaurant = restaurantExists.get();
+        restaurant.getCuisines().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
+        cuisines.forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(new RestaurantCuisine(cuisine, restaurant)));
     }
 
     public void deleteRestaurant(Long restaurantId) {

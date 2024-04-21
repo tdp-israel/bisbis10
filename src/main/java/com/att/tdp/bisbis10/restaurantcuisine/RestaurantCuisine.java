@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 
 @Entity
 public class RestaurantCuisine {
@@ -38,6 +37,11 @@ public class RestaurantCuisine {
 
     public RestaurantCuisine(String cuisine) {
         this.cuisine = cuisine;
+    }
+
+    public RestaurantCuisine(String cuisine, Restaurant restaurant) {
+        this.cuisine = cuisine;
+        this.restaurant = restaurant;
     }
 
 
