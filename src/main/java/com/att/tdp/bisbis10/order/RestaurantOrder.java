@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Order {
+public class RestaurantOrder {
     @Id
     @SequenceGenerator(
         name = "order_sequence",
@@ -33,16 +33,16 @@ public class Order {
     @OneToMany
     private List<Dish> orderItems;
 
-    public Order() {
+    public RestaurantOrder() {
     }
 
-    public Order(Long id, Restaurant restaurant, List<Dish> orderItems) {
+    public RestaurantOrder(Long id, Restaurant restaurant, List<Dish> orderItems) {
         this.id = id;
         this.restaurant = restaurant;
         this.orderItems = orderItems;
     }
 
-    public Order(Restaurant restaurant, List<Dish> orderItems) {
+    public RestaurantOrder(Restaurant restaurant, List<Dish> orderItems) {
         this.restaurant = restaurant;
         this.orderItems = orderItems;
     }
