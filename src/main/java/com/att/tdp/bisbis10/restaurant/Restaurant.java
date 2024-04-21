@@ -1,9 +1,13 @@
 package com.att.tdp.bisbis10.restaurant;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisine;
 import com.att.tdp.bisbis10.restaurantrating.RestaurantRating;
+import com.att.tdp.utils.Utils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 @Entity
 @Table
 public class Restaurant {
@@ -29,25 +34,30 @@ public class Restaurant {
     private String name;
     private boolean isKosher;
 
-    @OneToMany
-    private List<RestaurantRating> averageRating;
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantCuisine> cuisines;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    private List<RestaurantRating> ratings;
+
+    @Transient
+    private float averageRating;
 
     public Restaurant() {
     }
 
-    public Restaurant(Long id, String name, List<RestaurantRating> averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(Long id, String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.id = id;
         this.name = name;
-        this.averageRating = averageRating;
+        this.ratings = ratings;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
     }
 
-    public Restaurant(String name, List<RestaurantRating> averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.name = name;
-        this.averageRating = averageRating;
+        this.ratings = ratings;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
     }        
@@ -82,17 +92,19 @@ public class Restaurant {
     }
 
     public float getAverageRating() {
-        float ratingsSum = 0;
-        float averageRating = 0;
-        for (RestaurantRating rating : this.averageRating) {
-            ratingsSum += rating.getRating();
-        }
-        averageRating = ratingsSum / this.averageRating.size();
-        return averageRating;
+        List<Float> ratings = this.ratings.stream()
+            .map(RestaurantRating::getRating)
+            .collect(Collectors.toList());
+        this.averageRating = Utils.average(ratings);
+        return this.averageRating;
     }
 
-    public void setAverageRating(List<RestaurantRating> restaurantRatings) {
-        this.averageRating = restaurantRatings;
+    public List<RestaurantRating> getRatings() {
+        return this.ratings;
+    }
+
+    public void setRatings(List<RestaurantRating> ratings) {
+        this.ratings = ratings;
     }
 
     public boolean isIsKosher() {

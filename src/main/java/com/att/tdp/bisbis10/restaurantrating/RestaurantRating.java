@@ -30,13 +30,13 @@ public class RestaurantRating {
     }
 
 
-    public RestaurantRating(Long id, float rating) {
-        this.id = id;
-        this.rating = rating;
-    }
-
     public RestaurantRating(Long id, float rating, Restaurant restaurant) {
         this.id = id;
+        this.rating = rating;
+        this.restaurant = restaurant;
+    }
+
+    public RestaurantRating(float rating, Restaurant restaurant) {
         this.rating = rating;
         this.restaurant = restaurant;
     }
