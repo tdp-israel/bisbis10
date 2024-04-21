@@ -1,5 +1,6 @@
 package com.att.tdp.bisbis10.dish;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class DishService {
     public DishService(DishRepository dishRepository, RestaurantService restaurantService) {
         this.dishRepository = dishRepository;
         this.restaurantService = restaurantService;
+    }
+
+    public List<Dish> getDishesByRestaurantId(Long restaurantId) {
+        List<Dish> dishes = dishRepository.getDishesByRestaurantId(restaurantId);
+        return dishes; 
     }
 
     public void addDish(Long restaurantId, Dish dish) {
