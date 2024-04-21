@@ -2,6 +2,7 @@ package com.att.tdp.bisbis10.dish;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,5 +24,11 @@ public class DishController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addDish(@PathVariable Long restaurantId, @RequestBody Dish dish) {
         dishService.addDish(restaurantId, dish);
+    }
+
+    @DeleteMapping("/{dishId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteDish(@PathVariable Long restaurantId, @PathVariable Long dishId) {
+        dishService.deleteDish(restaurantId, dishId);
     }
 }

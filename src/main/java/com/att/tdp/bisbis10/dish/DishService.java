@@ -24,4 +24,13 @@ public class DishService {
         dish.setRestaurant(restaurant);
         dishRepository.save(dish);
     }
+
+    public void deleteDish(Long restaurantId, Long dishId) {
+        Optional<Dish> dish = dishRepository.findById(dishId);
+        // TODO
+        // Throw error if dish does not exist
+        // Throw error if restaurantId does not match dish restaurant
+        dishRepository.deleteById(dishId);
+    }
+
 }
