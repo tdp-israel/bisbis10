@@ -3,6 +3,7 @@ package com.att.tdp.bisbis10.restaurant;
 import java.util.List;
 
 import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisine;
+import com.att.tdp.bisbis10.restaurantrating.RestaurantRating;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,16 +27,17 @@ public class Restaurant {
     )
     private Long id;
     private String name;
-    private float averageRating;
     private boolean isKosher;
 
+    @OneToMany
+    private List<RestaurantRating> averageRating;
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantCuisine> cuisines;
 
     public Restaurant() {
     }
 
-    public Restaurant(Long id, String name, float averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(Long id, String name, List<RestaurantRating> averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.id = id;
         this.name = name;
         this.averageRating = averageRating;
@@ -43,7 +45,7 @@ public class Restaurant {
         this.cuisines = cuisines;
     }
 
-    public Restaurant(String name, float averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(String name, List<RestaurantRating> averageRating, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.name = name;
         this.averageRating = averageRating;
         this.isKosher = isKosher;
@@ -80,11 +82,17 @@ public class Restaurant {
     }
 
     public float getAverageRating() {
-        return this.averageRating;
+        float ratingsSum = 0;
+        float averageRating = 0;
+        for (RestaurantRating rating : this.averageRating) {
+            ratingsSum += rating.getRating();
+        }
+        averageRating = ratingsSum / this.averageRating.size();
+        return averageRating;
     }
 
-    public void setAverageRating(float averageRating) {
-        this.averageRating = averageRating;
+    public void setAverageRating(List<RestaurantRating> restaurantRatings) {
+        this.averageRating = restaurantRatings;
     }
 
     public boolean isIsKosher() {
