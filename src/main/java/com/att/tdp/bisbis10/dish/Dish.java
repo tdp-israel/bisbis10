@@ -1,25 +1,48 @@
 package com.att.tdp.bisbis10.dish;
 
+import com.att.tdp.bisbis10.restaurant.Restaurant;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class Dish {
+    @Id
+    @SequenceGenerator(
+        name = "dish_sequeunce",
+        sequenceName = "dish_sequeunce",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "dish_sequeunce"
+    )
     private Long id;
-    private Long restaurantId;
     private String name;
     private String description;
     private Integer price;
+    @ManyToOne
+    private Restaurant restaurant;
 
     public Dish() {
     }
 
-    public Dish(Long id, Long restaurantId, String name, String description, Integer price) {
+    public Dish(Long id, Restaurant restaurant, String name, String description, Integer price) {
         this.id = id;
-        this.restaurantId = restaurantId;
+        this.restaurant = restaurant;
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    public Dish(Long restaurantId, String name, String description, Integer price) {
-        this.restaurantId = restaurantId;
+    public Dish(Restaurant restaurant, String name, String description, Integer price) {
+        this.restaurant = restaurant;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -30,7 +53,7 @@ public class Dish {
     public String toString() {
         return "Dish {" +
             " id='" + getId() + "'" +
-            ", restaurantId='" + getRestaurantId() + "'" +
+            ", restaurantId='" + getRestaurant() + "'" +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", price='" + getPrice() + "'" +
@@ -45,12 +68,12 @@ public class Dish {
         this.id = id;
     }
 
-    public Long getRestaurantId() {
-        return this.restaurantId;
+    public Long getRestaurant() {
+        return this.restaurant.getId();
     }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public String getName() {
