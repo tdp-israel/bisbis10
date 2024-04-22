@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Transient;
 
 @Entity
 public class RestaurantRating {
@@ -22,9 +23,13 @@ public class RestaurantRating {
         generator = "restaurant_rating_sequeunce"
     )
     private Long id;
-    private float rating;
+    private Float rating;
+
     @ManyToOne
     private Restaurant restaurant;
+
+    @Transient
+    private Long restaurantId;
 
     public RestaurantRating() {
     }
@@ -51,11 +56,11 @@ public class RestaurantRating {
     }
 
     public Long getRestaurantId() {
-        return this.restaurant.getId();
+        return this.restaurantId;
     }
 
-    public void setRestaurantId(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public float getRating() {
@@ -64,5 +69,22 @@ public class RestaurantRating {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getRestaurant() {
+        return this.restaurant.getId();
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+        this.restaurantId = restaurant.getId();
     }
 }
