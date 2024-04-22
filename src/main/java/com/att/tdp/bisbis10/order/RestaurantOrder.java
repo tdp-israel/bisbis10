@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table
@@ -33,18 +34,24 @@ public class RestaurantOrder {
     @OneToMany
     private List<Dish> orderItems;
 
+    @Transient
+    private Long restaurantId;
+
     public RestaurantOrder() {
     }
 
-    public RestaurantOrder(Long id, Restaurant restaurant, List<Dish> orderItems) {
+
+    public RestaurantOrder(Long id, Restaurant restaurant, List<Dish> orderItems, Long restaurantId) {
         this.id = id;
         this.restaurant = restaurant;
         this.orderItems = orderItems;
+        this.restaurantId = restaurantId;
     }
 
-    public RestaurantOrder(Restaurant restaurant, List<Dish> orderItems) {
+    public RestaurantOrder(Restaurant restaurant, List<Dish> orderItems, Long restaurantId) {
         this.restaurant = restaurant;
         this.orderItems = orderItems;
+        this.restaurantId = restaurantId;
     }
 
 
@@ -65,8 +72,8 @@ public class RestaurantOrder {
         this.id = id;
     }
 
-    public Long getRestaurant() {
-        return this.restaurant.getId();
+    public Restaurant getRestaurant() {
+        return this.restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
@@ -79,6 +86,17 @@ public class RestaurantOrder {
 
     public void setOrderItems(List<Dish> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Long getRestaurantId() {
+        if(this.restaurant != null) {
+            return this.restaurant.getId();
+        }
+        return this.restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
 }
