@@ -1,6 +1,7 @@
 package com.att.tdp.bisbis10.dish;
 
 import com.att.tdp.bisbis10.restaurant.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table
@@ -26,14 +28,19 @@ public class Dish {
     private Long id;
     private String name;
     private String description;
-    private Integer price;
+    private Float price;
+
     @ManyToOne
+    @JsonIgnore
     private Restaurant restaurant;
+
+    @Transient
+    private Long restaurantId;
 
     public Dish() {
     }
 
-    public Dish(Long id, Restaurant restaurant, String name, String description, Integer price) {
+    public Dish(Long id, Restaurant restaurant, String name, String description, Float price) {
         this.id = id;
         this.restaurant = restaurant;
         this.name = name;
@@ -41,7 +48,7 @@ public class Dish {
         this.price = price;
     }
 
-    public Dish(Restaurant restaurant, String name, String description, Integer price) {
+    public Dish(Restaurant restaurant, String name, String description, Float price) {
         this.restaurant = restaurant;
         this.name = name;
         this.description = description;
@@ -68,6 +75,18 @@ public class Dish {
         this.id = id;
     }
 
+
+    public Long getRestaurantId() {
+        if(restaurant != null) {
+            return this.restaurant.getId();
+        }
+        return this.restaurantId;
+    }
+
+    public void setRestaurantId(Long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
     public Long getRestaurant() {
         return this.restaurant.getId();
     }
@@ -92,11 +111,11 @@ public class Dish {
         this.description = description;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return this.price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
