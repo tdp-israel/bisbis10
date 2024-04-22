@@ -34,8 +34,9 @@ public class Restaurant {
     private String name;
     private boolean isKosher;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantCuisine> cuisines;
+    private List<RestaurantCuisine> cuisines_;
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
@@ -43,6 +44,8 @@ public class Restaurant {
 
     @Transient
     private float averageRating;
+    @Transient
+    private List<String> cuisines;
 
     public Restaurant() {
     }
@@ -52,14 +55,14 @@ public class Restaurant {
         this.name = name;
         this.ratings = ratings;
         this.isKosher = isKosher;
-        this.cuisines = cuisines;
+        this.cuisines_ = cuisines;
     }
 
     public Restaurant(String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.name = name;
         this.ratings = ratings;
         this.isKosher = isKosher;
-        this.cuisines = cuisines;
+        this.cuisines_ = cuisines;
     }        
 
 
@@ -119,11 +122,22 @@ public class Restaurant {
         this.isKosher = isKosher;
     }
 
-    public List<RestaurantCuisine> getCuisines() {
-        return this.cuisines;
+    public List<RestaurantCuisine> getCuisines_() {
+        return this.cuisines_;
     }
 
-    public void setCuisines(List<RestaurantCuisine> cuisines) {
-        this.cuisines = cuisines;
+    public void setCuisines_(List<RestaurantCuisine> cuisines) {
+        this.cuisines_ = cuisines;
+    }
+
+    public void setAverageRating(float averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public List<String> getCuisines() {
+        this.cuisines = this.cuisines_.stream()
+            .map(RestaurantCuisine::getCuisine)
+            .collect(Collectors.toList());
+        return this.cuisines;
     }
 }

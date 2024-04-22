@@ -1,6 +1,7 @@
 package com.att.tdp.bisbis10.restaurantcuisine;
 
 import com.att.tdp.bisbis10.restaurant.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,9 +22,11 @@ public class RestaurantCuisine {
         strategy = GenerationType.SEQUENCE,
         generator = "restaurant_cuisine_sequeunce"
     )
+    @JsonIgnore
     private Long id;
     private String cuisine;
 
+    @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
 

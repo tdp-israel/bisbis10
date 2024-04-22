@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     
-    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.cuisines WHERE ?1 IN (SELECT cuisine FROM r.cuisines)")
+    @Query("SELECT r FROM Restaurant r LEFT JOIN FETCH r.cuisines_ WHERE ?1 IN (SELECT cuisine FROM r.cuisines_)")
     public List<Restaurant> findRestaurantsByCausine(String cuisine);
 }
