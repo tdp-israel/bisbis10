@@ -1,6 +1,7 @@
 package com.att.tdp.bisbis10.restaurantrating;
 
 import com.att.tdp.bisbis10.restaurant.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class RestaurantRating {
     private Float rating;
 
     @ManyToOne
+    @JsonIgnore
     private Restaurant restaurant;
 
     @Transient
