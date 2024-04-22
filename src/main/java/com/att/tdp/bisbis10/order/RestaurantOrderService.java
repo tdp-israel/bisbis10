@@ -27,13 +27,13 @@ public class RestaurantOrderService {
         List<Dish> orderItems = new ArrayList<>();
         // TODO
         // Add Dish does not exist error
-        for (OrderItem orderItem : orderCreateRequest.getOrderItems()) {
-            for (Dish dish : orderItems) {
-                if(dish.getId() == orderItem.getDish())
-            }
-            orderItems.add();
-        }
-        RestaurantOrder restaurantOrder = new RestaurantOrder(restaurant, orderItems);
-        restaurantOrderRepository.save(restaurantOrder);
+        // for (OrderItem orderItem : orderCreateRequest.getOrderItems()) {
+        //     for (Dish dish : orderItems) {
+        //         if(dish.getId() == orderItem.getDish())
+        //     }
+        //     orderItems.add();
+        // }
+        // RestaurantOrder restaurantOrder = new RestaurantOrder(restaurant, orderItems);
+        // restaurantOrderRepository.save(restaurantOrder);
     }
 }

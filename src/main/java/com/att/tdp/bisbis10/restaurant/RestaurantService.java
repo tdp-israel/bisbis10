@@ -1,5 +1,6 @@
 package com.att.tdp.bisbis10.restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +43,14 @@ public class RestaurantService {
     }
 
     public void addRestaurant(Restaurant restaurant) {
-        restaurant.getCuisines().forEach(cuisine -> cuisine.setRestaurant(restaurant));
+        System.out.println(restaurant);
+        List<RestaurantCuisine> restaurantCuisines = new ArrayList<>();
+        for (String cuisine : restaurant.getCuisines()) {
+            restaurantCuisines.add(new RestaurantCuisine(cuisine, restaurant));
+        }
+        restaurant.setCuisines_(restaurantCuisines);
         restaurantRepository.save(restaurant);
-        restaurant.getCuisines().forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(cuisine));
+        restaurant.getCuisines_().forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(cuisine));
     }
 
     public void updateRestaurantCuisines(Long restaurantId, 
@@ -53,7 +59,7 @@ public class RestaurantService {
         // TODO
         // Throw Error if restaurant does not exist!
         Restaurant restaurant = restaurantExists.get();
-        restaurant.getCuisines().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
+        restaurant.getCuisines_().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
         cuisines.forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(new RestaurantCuisine(cuisine, restaurant)));
     }
 
@@ -61,7 +67,7 @@ public class RestaurantService {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
         // TODO
         // Throw error if Restaurant does not exist
-        restaurant.get().getCuisines().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
+        restaurant.get().getCuisines_().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
         restaurantRepository.deleteById(restaurantId);
     }
 }

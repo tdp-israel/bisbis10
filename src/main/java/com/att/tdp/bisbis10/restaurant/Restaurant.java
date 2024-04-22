@@ -94,12 +94,18 @@ public class Restaurant {
         this.name = name;
     }
 
-    public float getAverageRating() {
-        List<Float> ratings = this.ratings.stream()
-            .map(RestaurantRating::getRating)
-            .collect(Collectors.toList());
-        this.averageRating = Utils.average(ratings);
+    public Float getAverageRating() {
+        if(this.ratings != null) {
+            List<Float> ratings = this.ratings.stream()
+                .map(RestaurantRating::getRating)
+                .collect(Collectors.toList());
+            return Utils.average(ratings);
+        }
         return this.averageRating;
+    }
+
+    public void setAverageRating(Float averageRating) {
+        this.averageRating = averageRating;
     }
 
     public List<RestaurantRating> getRatings() {
@@ -135,9 +141,16 @@ public class Restaurant {
     }
 
     public List<String> getCuisines() {
-        this.cuisines = this.cuisines_.stream()
-            .map(RestaurantCuisine::getCuisine)
-            .collect(Collectors.toList());
+        if(this.cuisines_ != null) {
+            return this.cuisines_.stream()
+                .map(RestaurantCuisine::getCuisine)
+                .collect(Collectors.toList());
+
+        }
         return this.cuisines;
+    }
+
+    public void setCuisines(List<String> cuisines) {
+        this.cuisines = cuisines;
     }
 }
