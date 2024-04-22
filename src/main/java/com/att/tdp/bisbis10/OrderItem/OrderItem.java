@@ -2,14 +2,17 @@ package com.att.tdp.bisbis10.OrderItem;
 
 import com.att.tdp.bisbis10.dish.Dish;
 import com.att.tdp.bisbis10.order.RestaurantOrder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table
@@ -24,11 +27,19 @@ public class OrderItem {
         strategy = GenerationType.SEQUENCE,
         generator = "order_item_sequeunce"
     )
-    Long id;
-    Integer amount;
-    Dish dish;
+    @JsonIgnore
+    private Long id;
+    private Integer amount;
+
+    @OneToOne
+    @JsonIgnore
+    private Dish dish;
+
+    @Transient
+    private Long dishId;
 
     @ManyToOne
+    @JsonIgnore
     RestaurantOrder order;
 
 
@@ -54,8 +65,8 @@ public class OrderItem {
         return "{" +
             " id='" + getId() + "'" +
             ", amount='" + getAmount() + "'" +
-            ", dish='" + getDish() + "'" +
-            ", order='" + getOrder() + "'" +
+            ", dishId='" + getDishId() + "'" +
+            ", orderId='" + getOrder().getId() + "'" +
             "}";
     }
 
@@ -84,12 +95,23 @@ public class OrderItem {
         this.dish = dish;
     }
 
-    public Long getOrder() {
-        return this.order.getId();
+    public RestaurantOrder getOrder() {
+        return this.order;
     }
 
     public void setOrder(RestaurantOrder order) {
         this.order = order;
+    }
+
+    public Long getDishId() {
+        if(this.dish != null) {
+            return dish.getId();
+        }
+        return this.dishId;
+    }
+
+    public void setDishId(Long dishId) {
+        this.dishId = dishId;
     }
 
 }
