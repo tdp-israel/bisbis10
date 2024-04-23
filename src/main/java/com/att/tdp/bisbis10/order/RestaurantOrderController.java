@@ -20,7 +20,7 @@ public class RestaurantOrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addRestaurantOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
-        restaurantOrderService.addRestaurantOrder(orderCreateRequest);
+    public void addRestaurantOrder(@RequestBody RestaurantOrder restaurantOrder) {
+        restaurantOrderService.addRestaurantOrder(restaurantOrder);
     }
 }

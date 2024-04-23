@@ -8,8 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table
@@ -24,12 +26,17 @@ public class OrderItem {
         strategy = GenerationType.SEQUENCE,
         generator = "order_item_sequeunce"
     )
-    Long id;
-    Integer amount;
-    Dish dish;
+    private Long id;
+    private Integer amount;
 
     @ManyToOne
-    RestaurantOrder order;
+    private Dish dish;
+
+    @Transient
+    private Long dishId;
+
+    @ManyToOne
+    private RestaurantOrder order;
 
 
     public OrderItem() {
@@ -55,7 +62,7 @@ public class OrderItem {
             " id='" + getId() + "'" +
             ", amount='" + getAmount() + "'" +
             ", dish='" + getDish() + "'" +
-            ", order='" + getOrder() + "'" +
+            ", order='" + getOrder().getId() + "'" +
             "}";
     }
 
@@ -84,12 +91,23 @@ public class OrderItem {
         this.dish = dish;
     }
 
-    public Long getOrder() {
-        return this.order.getId();
+    public RestaurantOrder getOrder() {
+        return this.order;
     }
 
     public void setOrder(RestaurantOrder order) {
         this.order = order;
+    }
+
+    public Long getDishId() {
+        if(dish != null) {
+            return dish.getId();
+        }
+        return this.dishId;
+    }
+
+    public void setDishId(Long dishId) {
+        this.dishId = dishId;
     }
 
 }
