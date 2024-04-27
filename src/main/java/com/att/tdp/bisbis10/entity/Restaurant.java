@@ -11,23 +11,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 @Entity
 @Table
 public class Restaurant {
     @Id
-    @SequenceGenerator(
-        name = "restaurant_sequence",
-        sequenceName = "restaurant_sequence",
-        allocationSize = 1
-    )
     @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "restaurant_sequeunce"
+        strategy = GenerationType.IDENTITY
     )
-    private Long id;
+    private Integer id;
     private String name;
     private boolean isKosher;
 
@@ -47,7 +40,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(Long id, String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(Integer id, String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
         this.id = id;
         this.name = name;
         this.ratings = ratings;
@@ -75,11 +68,11 @@ public class Restaurant {
             "}";
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
