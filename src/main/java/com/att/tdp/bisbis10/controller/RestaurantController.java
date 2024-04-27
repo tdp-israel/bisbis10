@@ -21,6 +21,8 @@ import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/restaurants")
 public class RestaurantController {
@@ -52,14 +54,14 @@ public class RestaurantController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurant addRestaurant(@RequestBody RestaurantRequest restaurant) {
+    public Restaurant addRestaurant(@RequestBody @Valid RestaurantRequest restaurant) {
         Restaurant newRestaurant = restaurantService.addRestaurant(restaurant);
         return newRestaurant;
     }
 
     @PutMapping("/{id}")
     public Restaurant updateRestaurant(@PathVariable("id") Integer restaurantId, 
-                                 @RequestBody RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
+                                 @RequestBody @Valid RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
         Restaurant updatedRestaurant = restaurantService.updateRestaurantCuisines(restaurantId, restaurantUpdateCuisinesRequest);
         return updatedRestaurant;
     }

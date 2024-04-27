@@ -7,10 +7,6 @@ import jakarta.validation.constraints.NotNull;
 
 public class RestaurantUpdateCuisinesRequest {
     
-    @NotBlank(message = "Restaurant name must not be empty!")
-    private String name;
-    @NotNull(message = "Restaurant kosher status must be provided!")
-    private Boolean isKosher;
     @NotNull(message = "Cuisines must be a list of strings!")
     private List<String> cuisines;
 

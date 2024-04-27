@@ -59,7 +59,7 @@ public class Restaurant {
             " id='" + getId() + "'" +
             ", name='" + getName() + "'" +
             ", averageRating='" + getAverageRating() + "'" +
-            ", isKosher='" + isIsKosher() + "'" +
+            ", isKosher='" + getIsKosher() + "'" +
             ", cuisines='" + getCuisines() + "'" +
             "}";
     }
