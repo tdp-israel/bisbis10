@@ -21,18 +21,18 @@ public class DishService {
         this.restaurantService = restaurantService;
     }
 
-    public List<Dish> getDishesByRestaurantId(Long restaurantId) {
+    public List<Dish> getDishesByRestaurantId(Integer restaurantId) {
         List<Dish> dishes = dishRepository.getDishesByRestaurantId(restaurantId);
         return dishes; 
     }
 
-    public void addDish(Long restaurantId, Dish dish) {
+    public void addDish(Integer restaurantId, Dish dish) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         dish.setRestaurant(restaurant);
         dishRepository.save(dish);
     }
 
-    public void deleteDish(Long restaurantId, Long dishId) {
+    public void deleteDish(Integer restaurantId, Integer dishId) {
         Optional<Dish> dish = dishRepository.findById(dishId);
         // TODO
         // Throw error if dish does not exist

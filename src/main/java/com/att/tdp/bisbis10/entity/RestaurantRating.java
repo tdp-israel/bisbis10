@@ -22,7 +22,7 @@ public class RestaurantRating {
         strategy = GenerationType.SEQUENCE,
         generator = "restaurant_rating_sequeunce"
     )
-    private Long id;
+    private Integer id;
     private Float rating;
 
     @ManyToOne
@@ -30,13 +30,13 @@ public class RestaurantRating {
     private Restaurant restaurant;
 
     @Transient
-    private Long restaurantId;
+    private Integer restaurantId;
 
     public RestaurantRating() {
     }
 
 
-    public RestaurantRating(Long id, float rating, Restaurant restaurant) {
+    public RestaurantRating(Integer id, float rating, Restaurant restaurant) {
         this.id = id;
         this.rating = rating;
         this.restaurant = restaurant;
@@ -56,11 +56,11 @@ public class RestaurantRating {
             "}";
     }
 
-    public Long getRestaurantId() {
+    public Integer getRestaurantId() {
         return this.restaurantId;
     }
 
-    public void setRestaurantId(Long restaurantId) {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
@@ -72,15 +72,15 @@ public class RestaurantRating {
         this.rating = rating;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getRestaurant() {
+    public Integer getRestaurant() {
         return this.restaurant.getId();
     }
 

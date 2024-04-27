@@ -27,7 +27,7 @@ public class RestaurantOrder {
         strategy = GenerationType.SEQUENCE,
         generator = "order_sequeunce"
     )
-    private Long id;
+    private Integer id;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
@@ -37,12 +37,12 @@ public class RestaurantOrder {
     private Restaurant restaurant;
     
     @Transient
-    private Long restaurantId;
+    private Integer restaurantId;
 
     public RestaurantOrder() {
     }
 
-    public RestaurantOrder(Long id, Restaurant restaurant, List<OrderItem> orderItems) {
+    public RestaurantOrder(Integer id, Restaurant restaurant, List<OrderItem> orderItems) {
         this.id = id;
         this.restaurant = restaurant;
         this.orderItems = orderItems;
@@ -65,11 +65,11 @@ public class RestaurantOrder {
             "}";
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -89,14 +89,14 @@ public class RestaurantOrder {
         this.orderItems = orderItems;
     }
 
-    public Long getRestaurantId() {
+    public Integer getRestaurantId() {
         if(this.restaurant != null) {
             return this.restaurant.getId();
         }
         return this.restaurantId;
     }
 
-    public void setRestaurantId(Long restaurantId) {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 

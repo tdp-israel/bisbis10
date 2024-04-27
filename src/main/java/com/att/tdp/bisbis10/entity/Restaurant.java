@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.att.tdp.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +25,8 @@ public class Restaurant {
     private String name;
     private boolean isKosher;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurant")
-    private List<RestaurantCuisine> cuisines_;
+    @ElementCollection
+    private List<String> cuisines;
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
@@ -34,18 +34,16 @@ public class Restaurant {
 
     @Transient
     private float averageRating;
-    @Transient
-    private List<String> cuisines;
 
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(Integer id, String name, List<RestaurantRating> ratings, boolean isKosher, List<String> cuisines) {
         this.id = id;
         this.name = name;
         this.ratings = ratings;
         this.isKosher = isKosher;
-        this.cuisines_ = cuisines;
+        this.cuisines = cuisines;
     }
 
     public Restaurant(String name, boolean isKosher, List<String> cuisines) {
@@ -53,8 +51,6 @@ public class Restaurant {
         this.isKosher = isKosher;
         this.cuisines = cuisines;
     }        
-
-
 
     @Override
     public String toString() {
@@ -117,25 +113,11 @@ public class Restaurant {
         this.isKosher = isKosher;
     }
 
-    public List<RestaurantCuisine> getCuisines_() {
-        return this.cuisines_;
-    }
-
-    public void setCuisines_(List<RestaurantCuisine> cuisines) {
-        this.cuisines_ = cuisines;
-    }
-
     public void setAverageRating(float averageRating) {
         this.averageRating = averageRating;
     }
 
     public List<String> getCuisines() {
-        if(this.cuisines_ != null) {
-            return this.cuisines_.stream()
-                .map(RestaurantCuisine::getCuisine)
-                .collect(Collectors.toList());
-
-        }
         return this.cuisines;
     }
 

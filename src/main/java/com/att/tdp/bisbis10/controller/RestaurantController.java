@@ -45,7 +45,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public Restaurant getRestaurant(@PathVariable("id") Long restaurantId) {
+    public Restaurant getRestaurant(@PathVariable("id") Integer restaurantId) {
         return restaurantService.getRestaurantById(restaurantId);
     }
 
@@ -57,7 +57,7 @@ public class RestaurantController {
     }
 
     @PutMapping("/{id}")
-    public void updateRestaurant(@PathVariable("id") Long restaurantId, 
+    public void updateRestaurant(@PathVariable("id") Integer restaurantId, 
                                  @RequestBody Map<String, List<String>> requestBody) {
         List<String> cuisines = requestBody.get("cuisines");
         restaurantService.updateRestaurantCuisines(restaurantId, cuisines);
@@ -65,7 +65,7 @@ public class RestaurantController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRestaurant(@PathVariable("id") Long restaurantId) {
+    public void deleteRestaurant(@PathVariable("id") Integer restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);
     }
 }

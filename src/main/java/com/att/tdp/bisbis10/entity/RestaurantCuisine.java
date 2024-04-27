@@ -22,7 +22,7 @@ public class RestaurantCuisine {
         generator = "restaurant_cuisine_sequeunce"
     )
     @JsonIgnore
-    private Long id;
+    private Integer id;
     private String cuisine;
 
     @JsonIgnore
@@ -32,7 +32,7 @@ public class RestaurantCuisine {
     public RestaurantCuisine() {
     }
 
-    public RestaurantCuisine(Long id, String cuisine) {
+    public RestaurantCuisine(Integer id, String cuisine) {
         this.id = id;
         this.cuisine = cuisine;
     }
@@ -56,11 +56,11 @@ public class RestaurantCuisine {
             "}";
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,7 +72,7 @@ public class RestaurantCuisine {
         this.cuisine = cuisine;
     }
 
-    public Long getRestaurant() {
+    public Integer getRestaurant() {
         return this.restaurant.getId();
     }
 

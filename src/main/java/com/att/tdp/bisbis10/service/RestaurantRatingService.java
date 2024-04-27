@@ -19,7 +19,7 @@ public class RestaurantRatingService {
     }
 
     public void addRestaurantRating(RestaurantRating restaurantRating) {
-        Long restaurantId = restaurantRating.getRestaurantId();
+        Integer restaurantId = restaurantRating.getRestaurantId();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         
         restaurantRating.setRestaurant(restaurant);

@@ -10,20 +10,16 @@ import org.springframework.stereotype.Service;
 
 import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
-import com.att.tdp.bisbis10.entity.RestaurantCuisine;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
 
 
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
-    private final RestaurantCuisineService restaurantCuisineService;
-
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, RestaurantCuisineService restaurantCuisineService) {
+    public RestaurantService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
-        this.restaurantCuisineService = restaurantCuisineService;
     }
 
 
@@ -33,11 +29,11 @@ public class RestaurantService {
     }
 
     public List<Restaurant> getRestaurantsByCuisine(String cuisine) {
-        List<Restaurant> restaurants = restaurantRepository.findRestaurantsByCausine(cuisine);
+        List<Restaurant> restaurants = restaurantRepository.findByCuisinesContaining(cuisine);
         return restaurants;
     }
     
-    public Restaurant getRestaurantById(Long restaurantId) {
+    public Restaurant getRestaurantById(Integer restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
         // TODO
         // Throw Error if restaurant does not exist!
@@ -51,33 +47,23 @@ public class RestaurantService {
             restaurantRequest.getCuisines()
         );
 
-        List<RestaurantCuisine> restaurantCuisines = new ArrayList<>();
-        for (String cuisine : restaurant.getCuisines()) {
-            restaurantCuisines.add(new RestaurantCuisine(cuisine, restaurant));
-        }
-        restaurant.setCuisines_(restaurantCuisines);
-
         restaurantRepository.save(restaurant);
-        restaurant.getCuisines_().forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(cuisine));
-    
         return restaurant;
     }
 
-    public void updateRestaurantCuisines(Long restaurantId, 
+    public void updateRestaurantCuisines(Integer restaurantId, 
                                  List<String> cuisines) {
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(restaurantId);
         // TODO
         // Throw Error if restaurant does not exist!
         Restaurant restaurant = restaurantExists.get();
-        restaurant.getCuisines_().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
-        cuisines.forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(new RestaurantCuisine(cuisine, restaurant)));
+        restaurantRepository.save(restaurant);
     }
 
-    public void deleteRestaurant(Long restaurantId) {
+    public void deleteRestaurant(Integer restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
         // TODO
         // Throw error if Restaurant does not exist
-        restaurant.get().getCuisines_().forEach(cuisine -> restaurantCuisineService.deleteRestaurantCuisine(cuisine.getId()));
         restaurantRepository.deleteById(restaurantId);
     }
 }

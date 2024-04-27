@@ -24,7 +24,7 @@ public class Dish {
         strategy = GenerationType.SEQUENCE,
         generator = "dish_sequeunce"
     )
-    private Long id;
+    private Integer id;
     private String name;
     private String description;
     private Float price;
@@ -34,12 +34,12 @@ public class Dish {
     private Restaurant restaurant;
 
     @Transient
-    private Long restaurantId;
+    private Integer restaurantId;
 
     public Dish() {
     }
 
-    public Dish(Long id, Restaurant restaurant, String name, String description, Float price) {
+    public Dish(Integer id, Restaurant restaurant, String name, String description, Float price) {
         this.id = id;
         this.restaurant = restaurant;
         this.name = name;
@@ -66,27 +66,27 @@ public class Dish {
             "}";
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
 
-    public Long getRestaurantId() {
+    public Integer getRestaurantId() {
         if(restaurant != null) {
             return this.restaurant.getId();
         }
         return this.restaurantId;
     }
 
-    public void setRestaurantId(Long restaurantId) {
+    public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
     }
 
-    public Long getRestaurant() {
+    public Integer getRestaurant() {
         return this.restaurant.getId();
     }
 

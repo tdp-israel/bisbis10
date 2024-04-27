@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.att.tdp.bisbis10.entity.OrderItem;
 
 @Repository
-public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
 }

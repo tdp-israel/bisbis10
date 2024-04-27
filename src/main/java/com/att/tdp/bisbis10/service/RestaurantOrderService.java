@@ -28,7 +28,7 @@ public class RestaurantOrderService {
     }
     
     public void addRestaurantOrder(RestaurantOrder restaurantOrder) {
-        Long restaurantId = restaurantOrder.getRestaurantId();
+        Integer restaurantId = restaurantOrder.getRestaurantId();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         List<OrderItem> orderItems = new ArrayList<>();
 

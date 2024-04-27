@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.att.tdp.bisbis10.entity.RestaurantOrder;
 
 @Repository
-public interface RestaurantOrderRepository extends JpaRepository<RestaurantOrder, Long>{
+public interface RestaurantOrderRepository extends JpaRepository<RestaurantOrder, Integer>{
     
 }

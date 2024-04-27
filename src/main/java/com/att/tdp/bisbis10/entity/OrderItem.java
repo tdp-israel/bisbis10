@@ -26,7 +26,7 @@ public class OrderItem {
         generator = "order_item_sequeunce"
     )
     @JsonIgnore
-    private Long id;
+    private Integer id;
     private Integer amount;
 
     @OneToOne
@@ -34,7 +34,7 @@ public class OrderItem {
     private Dish dish;
 
     @Transient
-    private Long dishId;
+    private Integer dishId;
 
     @ManyToOne
     @JsonIgnore
@@ -50,7 +50,7 @@ public class OrderItem {
         this.order = order;
     }
 
-    public OrderItem(Long id, Integer amount, Dish dish, RestaurantOrder order) {
+    public OrderItem(Integer id, Integer amount, Dish dish, RestaurantOrder order) {
         this.id = id;
         this.amount = amount;
         this.dish = dish;
@@ -69,11 +69,11 @@ public class OrderItem {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -101,14 +101,14 @@ public class OrderItem {
         this.order = order;
     }
 
-    public Long getDishId() {
+    public Integer getDishId() {
         if(this.dish != null) {
             return dish.getId();
         }
         return this.dishId;
     }
 
-    public void setDishId(Long dishId) {
+    public void setDishId(Integer dishId) {
         this.dishId = dishId;
     }
 

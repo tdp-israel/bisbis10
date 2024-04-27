@@ -19,7 +19,7 @@ public class RestaurantCuisineService {
         this.restaurantCuisineRespository.save(restaurantCuisine);
     }
 
-    public void deleteRestaurantCuisine(Long restaurantCuisineId) {
+    public void deleteRestaurantCuisine(Integer restaurantCuisineId) {
         this.restaurantCuisineRespository.deleteById(restaurantCuisineId);
     }
 }

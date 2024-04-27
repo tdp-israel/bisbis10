@@ -27,20 +27,20 @@ public class DishController {
     }
 
     @GetMapping
-    public List<Dish> getDishesByRestaurantId(@PathVariable Long restaurantId) {
+    public List<Dish> getDishesByRestaurantId(@PathVariable Integer restaurantId) {
         List<Dish> dishes = dishService.getDishesByRestaurantId(restaurantId);
         return dishes;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addDish(@PathVariable Long restaurantId, @RequestBody Dish dish) {
+    public void addDish(@PathVariable Integer restaurantId, @RequestBody Dish dish) {
         dishService.addDish(restaurantId, dish);
     }
 
     @DeleteMapping("/{dishId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteDish(@PathVariable Long restaurantId, @PathVariable Long dishId) {
+    public void deleteDish(@PathVariable Integer restaurantId, @PathVariable Integer dishId) {
         dishService.deleteDish(restaurantId, dishId);
     }
 }
