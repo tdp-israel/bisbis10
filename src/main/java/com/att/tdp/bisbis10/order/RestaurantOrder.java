@@ -2,8 +2,9 @@ package com.att.tdp.bisbis10.order;
 
 import java.util.List;
 
-import com.att.tdp.bisbis10.dish.Dish;
+import com.att.tdp.bisbis10.OrderItem.OrderItem;
 import com.att.tdp.bisbis10.restaurant.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,26 +30,28 @@ public class RestaurantOrder {
         generator = "order_sequeunce"
     )
     private Long id;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
+    
+    @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
-    @OneToMany
-    private List<Dish> orderItems;
-
+    
     @Transient
     private Long restaurantId;
 
     public RestaurantOrder() {
     }
 
-
-    public RestaurantOrder(Long id, Restaurant restaurant, List<Dish> orderItems, Long restaurantId) {
+    public RestaurantOrder(Long id, Restaurant restaurant, List<OrderItem> orderItems) {
         this.id = id;
         this.restaurant = restaurant;
         this.orderItems = orderItems;
         this.restaurantId = restaurantId;
     }
 
-    public RestaurantOrder(Restaurant restaurant, List<Dish> orderItems, Long restaurantId) {
+    public RestaurantOrder(Restaurant restaurant, List<OrderItem> orderItems) {
         this.restaurant = restaurant;
         this.orderItems = orderItems;
         this.restaurantId = restaurantId;
@@ -57,10 +60,10 @@ public class RestaurantOrder {
 
     @Override
     public String toString() {
-        return "{" +
+        return "RestaurantOrder {" +
             " id='" + getId() + "'" +
             ", restaurant='" + getRestaurant() + "'" +
-            ", orderItems='" + getOrderItems() + "'" +
+            ", orderItems=[" + getOrderItems() + "]" +
             "}";
     }
 
@@ -80,11 +83,11 @@ public class RestaurantOrder {
         this.restaurant = restaurant;
     }
 
-    public List<Dish> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return this.orderItems;
     }
 
-    public void setOrderItems(List<Dish> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
