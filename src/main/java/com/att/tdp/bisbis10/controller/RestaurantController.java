@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 
@@ -50,8 +51,9 @@ public class RestaurantController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addRestaurant(@RequestBody Restaurant restaurant) {
-        restaurantService.addRestaurant(restaurant);
+    public Restaurant addRestaurant(@RequestBody RestaurantRequest restaurant) {
+        Restaurant newRestaurant = restaurantService.addRestaurant(restaurant);
+        return newRestaurant;
     }
 
     @PutMapping("/{id}")

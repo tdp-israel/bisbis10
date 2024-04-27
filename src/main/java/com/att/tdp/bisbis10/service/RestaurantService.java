@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.entity.RestaurantCuisine;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
@@ -43,15 +44,23 @@ public class RestaurantService {
         return restaurant.get();
     }
 
-    public void addRestaurant(Restaurant restaurant) {
-        System.out.println(restaurant);
+    public Restaurant addRestaurant(RestaurantRequest restaurantRequest) {
+        Restaurant restaurant = new Restaurant(
+            restaurantRequest.getName(),
+            restaurantRequest.getIsKosher(),
+            restaurantRequest.getCuisines()
+        );
+
         List<RestaurantCuisine> restaurantCuisines = new ArrayList<>();
         for (String cuisine : restaurant.getCuisines()) {
             restaurantCuisines.add(new RestaurantCuisine(cuisine, restaurant));
         }
         restaurant.setCuisines_(restaurantCuisines);
+
         restaurantRepository.save(restaurant);
         restaurant.getCuisines_().forEach(cuisine -> restaurantCuisineService.addRestaurantCuisine(cuisine));
+    
+        return restaurant;
     }
 
     public void updateRestaurantCuisines(Long restaurantId, 

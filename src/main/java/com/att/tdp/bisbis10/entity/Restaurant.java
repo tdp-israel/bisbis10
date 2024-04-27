@@ -48,11 +48,10 @@ public class Restaurant {
         this.cuisines_ = cuisines;
     }
 
-    public Restaurant(String name, List<RestaurantRating> ratings, boolean isKosher, List<RestaurantCuisine> cuisines) {
+    public Restaurant(String name, boolean isKosher, List<String> cuisines) {
         this.name = name;
-        this.ratings = ratings;
         this.isKosher = isKosher;
-        this.cuisines_ = cuisines;
+        this.cuisines = cuisines;
     }        
 
 
