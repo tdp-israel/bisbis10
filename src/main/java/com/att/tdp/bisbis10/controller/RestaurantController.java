@@ -1,4 +1,4 @@
-package com.att.tdp.bisbis10.restaurant;
+package com.att.tdp.bisbis10.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.service.RestaurantService;
 
 @RestController
 @RequestMapping("/restaurants")

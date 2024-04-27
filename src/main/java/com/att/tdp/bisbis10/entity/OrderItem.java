@@ -1,7 +1,5 @@
-package com.att.tdp.bisbis10.OrderItem;
+package com.att.tdp.bisbis10.entity;
 
-import com.att.tdp.bisbis10.dish.Dish;
-import com.att.tdp.bisbis10.order.RestaurantOrder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;

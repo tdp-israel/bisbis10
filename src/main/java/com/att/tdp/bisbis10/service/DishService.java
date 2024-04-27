@@ -1,4 +1,4 @@
-package com.att.tdp.bisbis10.dish;
+package com.att.tdp.bisbis10.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.att.tdp.bisbis10.restaurant.Restaurant;
-import com.att.tdp.bisbis10.restaurant.RestaurantService;
+import com.att.tdp.bisbis10.entity.Dish;
+import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.repository.DishRepository;
 
 @Service
 public class DishService {

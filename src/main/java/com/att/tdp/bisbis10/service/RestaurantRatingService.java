@@ -1,10 +1,11 @@
-package com.att.tdp.bisbis10.restaurantrating;
+package com.att.tdp.bisbis10.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.att.tdp.bisbis10.restaurant.Restaurant;
-import com.att.tdp.bisbis10.restaurant.RestaurantService;
+import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.entity.RestaurantRating;
+import com.att.tdp.bisbis10.repository.RestaurantRatingRepository;
 
 @Service
 public class RestaurantRatingService {
@@ -17,12 +18,11 @@ public class RestaurantRatingService {
         this.restaurantService = restaurantService;
     }
 
-    public void addRestaurantRating(RestaurantRatingCreateRequest restaurantRatingCreateRequest) {
-        Long restaurantId = restaurantRatingCreateRequest.getRestaurantId();
-        float rating = restaurantRatingCreateRequest.getRating();
-
+    public void addRestaurantRating(RestaurantRating restaurantRating) {
+        Long restaurantId = restaurantRating.getRestaurantId();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        RestaurantRating restaurantRating = new RestaurantRating(rating, restaurant);
+        
+        restaurantRating.setRestaurant(restaurant);
         restaurantRatingRepository.save(restaurantRating);
     }
 }

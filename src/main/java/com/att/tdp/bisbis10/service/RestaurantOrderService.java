@@ -1,4 +1,4 @@
-package com.att.tdp.bisbis10.order;
+package com.att.tdp.bisbis10.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,12 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.att.tdp.bisbis10.OrderItem.OrderItem;
-import com.att.tdp.bisbis10.OrderItem.OrderItemService;
-import com.att.tdp.bisbis10.dish.Dish;
-import com.att.tdp.bisbis10.dish.DishService;
-import com.att.tdp.bisbis10.restaurant.Restaurant;
-import com.att.tdp.bisbis10.restaurant.RestaurantService;
+import com.att.tdp.bisbis10.entity.Dish;
+import com.att.tdp.bisbis10.entity.OrderItem;
+import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.entity.RestaurantOrder;
+import com.att.tdp.bisbis10.repository.RestaurantOrderRepository;
 
 @Service
 public class RestaurantOrderService {

@@ -1,10 +1,8 @@
-package com.att.tdp.bisbis10.restaurant;
+package com.att.tdp.bisbis10.entity;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.att.tdp.bisbis10.restaurantcuisine.RestaurantCuisine;
-import com.att.tdp.bisbis10.restaurantrating.RestaurantRating;
 import com.att.tdp.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

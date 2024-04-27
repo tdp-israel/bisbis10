@@ -1,7 +1,10 @@
-package com.att.tdp.bisbis10.restaurantcuisine;
+package com.att.tdp.bisbis10.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.att.tdp.bisbis10.entity.RestaurantCuisine;
+import com.att.tdp.bisbis10.repository.RestaurantCuisineRespository;
 
 @Service
 public class RestaurantCuisineService {

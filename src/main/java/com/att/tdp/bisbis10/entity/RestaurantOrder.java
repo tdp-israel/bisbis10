@@ -1,9 +1,7 @@
-package com.att.tdp.bisbis10.order;
+package com.att.tdp.bisbis10.entity;
 
 import java.util.List;
 
-import com.att.tdp.bisbis10.OrderItem.OrderItem;
-import com.att.tdp.bisbis10.restaurant.Restaurant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
