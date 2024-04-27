@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.att.tdp.bisbis10.dto.RestaurantRequest;
+import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 
@@ -57,10 +58,10 @@ public class RestaurantController {
     }
 
     @PutMapping("/{id}")
-    public void updateRestaurant(@PathVariable("id") Integer restaurantId, 
-                                 @RequestBody Map<String, List<String>> requestBody) {
-        List<String> cuisines = requestBody.get("cuisines");
-        restaurantService.updateRestaurantCuisines(restaurantId, cuisines);
+    public Restaurant updateRestaurant(@PathVariable("id") Integer restaurantId, 
+                                 @RequestBody RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
+        Restaurant updatedRestaurant = restaurantService.updateRestaurantCuisines(restaurantId, restaurantUpdateCuisinesRequest);
+        return updatedRestaurant;
     }
 
     @DeleteMapping("/{id}")

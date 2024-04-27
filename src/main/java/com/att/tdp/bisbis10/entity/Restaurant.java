@@ -23,22 +23,23 @@ public class Restaurant {
     )
     private Integer id;
     private String name;
-    private boolean isKosher;
+    private Boolean isKosher;
 
     @ElementCollection
     private List<String> cuisines;
+
+    @Transient
+    private float averageRating;
 
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     private List<RestaurantRating> ratings;
 
-    @Transient
-    private float averageRating;
 
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String name, List<RestaurantRating> ratings, boolean isKosher, List<String> cuisines) {
+    public Restaurant(Integer id, String name, List<RestaurantRating> ratings, Boolean isKosher, List<String> cuisines) {
         this.id = id;
         this.name = name;
         this.ratings = ratings;
@@ -46,7 +47,7 @@ public class Restaurant {
         this.cuisines = cuisines;
     }
 
-    public Restaurant(String name, boolean isKosher, List<String> cuisines) {
+    public Restaurant(String name, Boolean isKosher, List<String> cuisines) {
         this.name = name;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
@@ -101,15 +102,11 @@ public class Restaurant {
         this.ratings = ratings;
     }
 
-    public boolean isIsKosher() {
+    public Boolean getIsKosher() {
         return this.isKosher;
     }
 
-    public boolean getIsKosher() {
-        return this.isKosher;
-    }
-
-    public void setIsKosher(boolean isKosher) {
+    public void setIsKosher(Boolean isKosher) {
         this.isKosher = isKosher;
     }
 

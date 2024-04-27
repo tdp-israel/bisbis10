@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.att.tdp.bisbis10.dto.RestaurantRequest;
+import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
 
@@ -51,19 +52,28 @@ public class RestaurantService {
         return restaurant;
     }
 
-    public void updateRestaurantCuisines(Integer restaurantId, 
-                                 List<String> cuisines) {
+    public Restaurant updateRestaurantCuisines(Integer restaurantId, 
+                                 RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
+        List<String> cuisines = restaurantUpdateCuisinesRequest.getCuisines();
+        Restaurant restaurant;
+
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(restaurantId);
+
         // TODO
         // Throw Error if restaurant does not exist!
-        Restaurant restaurant = restaurantExists.get();
+
+        restaurant = restaurantExists.get();
+        restaurant.setCuisines(cuisines);
         restaurantRepository.save(restaurant);
+        return restaurant;
     }
 
     public void deleteRestaurant(Integer restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+
         // TODO
         // Throw error if Restaurant does not exist
+        
         restaurantRepository.deleteById(restaurantId);
     }
 }

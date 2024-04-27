@@ -5,8 +5,8 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class RestaurantRequest {
-
+public class RestaurantUpdateCuisinesRequest {
+    
     @NotBlank(message = "Restaurant name must not be empty!")
     private String name;
     @NotNull(message = "Restaurant kosher status must be provided!")
@@ -18,38 +18,17 @@ public class RestaurantRequest {
     @Override
     public String toString() {
         return "{" +
-            " name='" + getName() + "'" +
-            ", isKosher='" + isIsKosher() + "'" +
-            ", cuisines='" + getCuisines() + "'" +
+            " cuisines='" + getCuisines() + "'" +
             "}";
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean isIsKosher() {
-        return this.isKosher;
-    }
-
-    public Boolean getIsKosher() {
-        return this.isKosher;
-    }
-
-    public void setIsKosher(Boolean isKosher) {
-        this.isKosher = isKosher;
-    }
-
     public List<String> getCuisines() {
+        System.out.println(this.cuisines);
         return this.cuisines;
     }
 
     public void setCuisines(List<String> cuisines) {
         this.cuisines = cuisines;
     }
-
+    
 }
