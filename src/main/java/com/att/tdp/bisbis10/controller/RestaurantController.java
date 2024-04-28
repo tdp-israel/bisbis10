@@ -31,10 +31,12 @@ import jakarta.websocket.server.PathParam;
 public class RestaurantController {
     
     private final RestaurantService restaurantService;
+    private final DataValidator dataValidator;
 
     @Autowired
-    public RestaurantController(RestaurantService restaurantService) {
+    public RestaurantController(RestaurantService restaurantService, DataValidator dataValidator) {
         this.restaurantService = restaurantService;
+        this.dataValidator = dataValidator;
     }
 
     @GetMapping
@@ -42,6 +44,7 @@ public class RestaurantController {
                                             @RequestParam(required = false) Integer page, 
                                             @RequestParam(required = false) Integer pageSize) {
         List<Restaurant> restaurants;
+        this.dataValidator.validatePageData(page, pageSize);
 
         if(cuisine != null) {
             restaurants = restaurantService.getRestaurantsByCuisine(cuisine, page, pageSize);

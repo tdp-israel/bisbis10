@@ -14,6 +14,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.att.tdp.bisbis10.exception.InvalidValueException;
+
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
     
@@ -34,6 +36,20 @@ public class ApplicationExceptionHandler {
     // Handles Json Parsing Errors - when data is received with the wrong type
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleInvalidDatatypeArgument(HttpMessageNotReadableException e) {
+        List<String> errorMessages = List.of(
+            e.getMessage()
+        );
+
+        ErrorResponse error = new ErrorResponse(
+            HttpStatus.BAD_REQUEST.value(),
+            errorMessages
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidValueException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidValue(InvalidValueException e) {
         List<String> errorMessages = List.of(
             e.getMessage()
         );
