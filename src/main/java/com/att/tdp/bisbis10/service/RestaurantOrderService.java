@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.att.tdp.bisbis10.dto.OrderRequest;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.OrderItem;
 import com.att.tdp.bisbis10.entity.Restaurant;
@@ -27,17 +28,17 @@ public class RestaurantOrderService {
         this.orderItemService = orderItemService;
     }
     
-    public void addRestaurantOrder(Order restaurantOrder) {
+    public void addRestaurantOrder(OrderRequest orderRequest) {
 
 
-        Integer restaurantId = restaurantOrder.getRestaurantId();
+        Integer restaurantId = orderRequest.getRestaurantId();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         List<OrderItem> orderItems = new ArrayList<>();
 
         List<Dish> dishes = dishService.getDishesByRestaurantId(restaurantId);
         
-        for (OrderItem orderItem : restaurantOrder.getOrderItems()) {
-            orderItem.setOrder(restaurantOrder);
+        for (OrderItem orderItem : orderRequest.getOrderItems()) {
+            orderItem.setOrder(orderRequest);
             for (Dish dish : dishes) {
                 if(dish.getId() == orderItem.getDishId()) {
                     orderItem.setDish(dish);
@@ -53,14 +54,14 @@ public class RestaurantOrderService {
         }
 
         // Save Order to DB
-        restaurantOrder.setRestaurant(restaurant);
-        restaurantOrder = restaurantOrderRepository.save(restaurantOrder);
+        orderRequest.setRestaurant(restaurant);
+        orderRequest = restaurantOrderRepository.save(orderRequest);
 
         // Save Order Items to DB
         for (OrderItem orderItem : orderItems) {
-            orderItem.setOrder(restaurantOrder);
+            orderItem.setOrder(orderRequest);
             orderItem = orderItemService.addOrderItem(orderItem);
         }
-        restaurantOrder.setOrderItems(orderItems);
+        orderRequest.setOrderItems(orderItems);
     }
 }
