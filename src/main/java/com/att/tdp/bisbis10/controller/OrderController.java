@@ -9,24 +9,23 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.att.tdp.bisbis10.dto.OrderRequest;
-import com.att.tdp.bisbis10.entity.Order;
-import com.att.tdp.bisbis10.service.RestaurantOrderService;
+import com.att.tdp.bisbis10.service.OrderService;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    RestaurantOrderService restaurantOrderService;
+    OrderService orderService;
 
     @Autowired
-    public OrderController(RestaurantOrderService restaurantOrderService) {
-        this.restaurantOrderService = restaurantOrderService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addRestaurantOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        restaurantOrderService.addRestaurantOrder(orderRequest);
+    public void addOrder(@Valid @RequestBody OrderRequest orderRequest) {
+        orderService.addOrder(orderRequest);
     }
 }

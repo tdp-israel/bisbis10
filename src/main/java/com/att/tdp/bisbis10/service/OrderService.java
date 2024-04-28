@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 import org.springframework.stereotype.Service;
 
 import com.att.tdp.bisbis10.dto.OrderItemDTO;
@@ -16,21 +15,21 @@ import com.att.tdp.bisbis10.entity.Order;
 import com.att.tdp.bisbis10.repository.OrderRepository;
 
 @Service
-public class RestaurantOrderService {
+public class OrderService {
     OrderRepository orderRepository;
     OrderItemService orderItemService;
     RestaurantService restaurantService;
     DishService dishService;
 
     @Autowired
-    public RestaurantOrderService(OrderRepository restaurantOrderRepository, RestaurantService restaurantService, DishService dishService, OrderItemService orderItemService) {
-        this.orderRepository = restaurantOrderRepository;
+    public OrderService(OrderRepository orderRepository, RestaurantService restaurantService, DishService dishService, OrderItemService orderItemService) {
+        this.orderRepository = orderRepository;
         this.restaurantService = restaurantService;
         this.dishService = dishService;
         this.orderItemService = orderItemService;
     }
     
-    public void addRestaurantOrder(OrderRequest orderRequest) {
+    public void addOrder(OrderRequest orderRequest) {
         Restaurant restaurant = restaurantService.getRestaurantById(
             orderRequest.getRestaurantId()
         );
