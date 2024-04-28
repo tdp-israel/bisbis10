@@ -3,9 +3,6 @@ package com.att.tdp.bisbis10.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-import javax.swing.text.html.Option;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +10,7 @@ import com.att.tdp.bisbis10.dto.DishRequest;
 import com.att.tdp.bisbis10.dto.DishUpdateRequest;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.exception.dish.DishNotFoundException;
 import com.att.tdp.bisbis10.repository.DishRepository;
 
 @Service
@@ -43,9 +41,7 @@ public class DishService {
         if(!dish.isPresent() ||
             dish.get().getRestaurant().getId() != restaurantId) {
             
-            throw new RuntimeErrorException(null);
-            // TODO
-            // Throw dish not found error
+            throw new DishNotFoundException();
         }
 
         return dish.get();
