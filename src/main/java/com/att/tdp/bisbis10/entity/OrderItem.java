@@ -27,6 +27,12 @@ public class OrderItem {
     public OrderItem() {
     }
 
+    public OrderItem(Integer amount, Dish dish, Order order) {
+        this.amount = amount;
+        this.dish = dish;
+        this.order = order;
+    }
+
 
     @Override
     public String toString() {

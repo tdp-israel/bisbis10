@@ -4,15 +4,14 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "restaurant_order")
@@ -25,12 +24,25 @@ public class Order {
     private Integer id;
 
     @OneToMany(mappedBy = "order")
+    @ElementCollection
     @JsonIgnore
     private List<OrderItem> orderItems;
     
     @ManyToOne
     @JsonIgnore
     private Restaurant restaurant;
+
+    public Order() {
+    }
+
+    public Order(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public Order(List<OrderItem> orderItems, Restaurant restaurant) {
+        this.orderItems = orderItems;
+        this.restaurant = restaurant;
+    }
 
 
     @Override

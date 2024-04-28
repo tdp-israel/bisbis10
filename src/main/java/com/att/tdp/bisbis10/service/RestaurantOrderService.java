@@ -4,64 +4,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.jaxb.SpringDataJaxb.OrderDto;
 import org.springframework.stereotype.Service;
 
+import com.att.tdp.bisbis10.dto.OrderItemDTO;
 import com.att.tdp.bisbis10.dto.OrderRequest;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.OrderItem;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.entity.Order;
-import com.att.tdp.bisbis10.repository.RestaurantOrderRepository;
+import com.att.tdp.bisbis10.repository.OrderRepository;
 
 @Service
 public class RestaurantOrderService {
-    RestaurantOrderRepository restaurantOrderRepository;
+    OrderRepository orderRepository;
     OrderItemService orderItemService;
     RestaurantService restaurantService;
     DishService dishService;
 
     @Autowired
-    public RestaurantOrderService(RestaurantOrderRepository restaurantOrderRepository, RestaurantService restaurantService, DishService dishService, OrderItemService orderItemService) {
-        this.restaurantOrderRepository = restaurantOrderRepository;
+    public RestaurantOrderService(OrderRepository restaurantOrderRepository, RestaurantService restaurantService, DishService dishService, OrderItemService orderItemService) {
+        this.orderRepository = restaurantOrderRepository;
         this.restaurantService = restaurantService;
         this.dishService = dishService;
         this.orderItemService = orderItemService;
     }
     
     public void addRestaurantOrder(OrderRequest orderRequest) {
+        Restaurant restaurant = restaurantService.getRestaurantById(
+            orderRequest.getRestaurantId()
+        );
+        Order order = new Order(restaurant);
 
-
-        Integer restaurantId = orderRequest.getRestaurantId();
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        // Build orderItems List
         List<OrderItem> orderItems = new ArrayList<>();
-
-        List<Dish> dishes = dishService.getDishesByRestaurantId(restaurantId);
-        
-        for (OrderItem orderItem : orderRequest.getOrderItems()) {
-            orderItem.setOrder(orderRequest);
-            for (Dish dish : dishes) {
-                if(dish.getId() == orderItem.getDishId()) {
-                    orderItem.setDish(dish);
-                    break;
-                }
-            }
-            if(orderItem.getDish() == null) {
-                System.out.println("Dish does not exist in restaurant");
-                // TODO
-                // Throw error, dish does not exist in restaurant
-            }
-            orderItems.add(orderItem);
+        for (OrderItemDTO orderItemDto : orderRequest.getOrderItems()) {
+            Dish dish = dishService.getDishById(
+                orderItemDto.getDishId(), 
+                restaurant.getId()
+            );
+            orderItems.add(
+                new OrderItem(
+                    orderItemDto.getAmount(),
+                    dish,
+                    order
+                )
+            );
         }
 
-        // Save Order to DB
-        orderRequest.setRestaurant(restaurant);
-        orderRequest = restaurantOrderRepository.save(orderRequest);
-
-        // Save Order Items to DB
-        for (OrderItem orderItem : orderItems) {
-            orderItem.setOrder(orderRequest);
-            orderItem = orderItemService.addOrderItem(orderItem);
-        }
-        orderRequest.setOrderItems(orderItems);
+        // Save Order and OrderItems
+        order.setOrderItems(orderItems);
+        orderRepository.save(order);
+        orderItems.forEach(orderItem -> 
+            orderItemService.addOrderItem(orderItem)
+        );
     }
 }

@@ -27,7 +27,6 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addRestaurantOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        System.out.println(orderRequest.getOrderItems());
-        // restaurantOrderService.addRestaurantOrder(orderRequest);
+        restaurantOrderService.addRestaurantOrder(orderRequest);
     }
 }
