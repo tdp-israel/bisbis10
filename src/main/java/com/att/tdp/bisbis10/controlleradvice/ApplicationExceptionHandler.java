@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.att.tdp.bisbis10.exception.InvalidValueException;
+import com.att.tdp.bisbis10.exception.ItemNotFoundException;
 
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
@@ -60,6 +61,20 @@ public class ApplicationExceptionHandler {
         );
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidValue(ItemNotFoundException e) {
+        List<String> errorMessages = List.of(
+            e.getMessage()
+        );
+
+        ErrorResponse error = new ErrorResponse(
+            HttpStatus.NOT_FOUND.value(),
+            errorMessages
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
 }
