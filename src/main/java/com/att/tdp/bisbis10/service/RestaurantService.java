@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.exception.restaurant.RestaurantNotFoundException;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
 
 
@@ -85,8 +86,11 @@ public class RestaurantService {
     
     public Restaurant getRestaurantById(Integer restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
-        // TODO
-        // Throw Error if restaurant does not exist!
+        
+        if(!restaurant.isPresent()) {
+            throw new RestaurantNotFoundException();
+        }
+
         return restaurant.get();
     }
 
@@ -108,8 +112,9 @@ public class RestaurantService {
 
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(restaurantId);
 
-        // TODO
-        // Throw Error if restaurant does not exist!
+        if(!restaurantExists.isPresent()) {
+            throw new RestaurantNotFoundException();
+        }
 
         restaurant = restaurantExists.get();
         restaurant.setCuisines(cuisines);
@@ -120,8 +125,9 @@ public class RestaurantService {
     public void deleteRestaurant(Integer restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 
-        // TODO
-        // Throw error if Restaurant does not exist
+        if(!restaurant.isPresent()) {
+            throw new RestaurantNotFoundException();
+        }
         
         restaurantRepository.deleteById(restaurantId);
     }
