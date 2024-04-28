@@ -19,6 +19,7 @@ public class ApplicationExceptionHandler {
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleInvalidArgument(MethodArgumentNotValidException e) {
+        
         List<String> errorMessages = e.getBindingResult().getFieldErrors().stream()
             .map(FieldError::getDefaultMessage)
             .collect(Collectors.toList());
@@ -34,13 +35,9 @@ public class ApplicationExceptionHandler {
     // Handles Json Parsing Errors - when data is received with the wrong type
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleInvalidDatatypeArgument(HttpMessageNotReadableException e) {
-        List<String> errorMessages = List.of(
-            e.getMessage()
-        );
-
-        ErrorResponse error = new ErrorResponse(
-            HttpStatus.BAD_REQUEST.value(),
-            errorMessages
+        
+        ErrorResponse error = createErrorResponseWithSingleMessage(
+            e, HttpStatus.BAD_REQUEST.value()
         );
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -48,13 +45,9 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ErrorResponse> handleInvalidValue(InvalidValueException e) {
-        List<String> errorMessages = List.of(
-            e.getMessage()
-        );
-
-        ErrorResponse error = new ErrorResponse(
-            HttpStatus.BAD_REQUEST.value(),
-            errorMessages
+        
+        ErrorResponse error = createErrorResponseWithSingleMessage(
+            e, HttpStatus.BAD_REQUEST.value()
         );
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -62,6 +55,15 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleInvalidValue(ItemNotFoundException e) {
+        
+        ErrorResponse error = createErrorResponseWithSingleMessage(
+            e, HttpStatus.NOT_FOUND.value()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+
+    public ErrorResponse createErrorResponseWithSingleMessage(Exception e, Integer status) {
         List<String> errorMessages = List.of(
             e.getMessage()
         );
@@ -71,7 +73,6 @@ public class ApplicationExceptionHandler {
             errorMessages
         );
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return error;
     }
-
 }
