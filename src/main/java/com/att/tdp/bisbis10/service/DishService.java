@@ -27,6 +27,9 @@ public class DishService {
     }
 
     public List<Dish> getDishesByRestaurantId(Integer restaurantId) {
+        // Throws exception when restaurant does not exists
+        restaurantService.getRestaurantById(restaurantId);
+        
         List<Dish> dishes = dishRepository.getDishesByRestaurantId(restaurantId);
         return dishes; 
     }
@@ -62,10 +65,12 @@ public class DishService {
     }
 
     public void deleteDish(Integer restaurantId, Integer dishId) {
-        Optional<Dish> dish = dishRepository.findById(dishId);
-        // TODO
-        // Throw error if dish does not exist
-        // Throw error if restaurantId does not match dish restaurant
+        // Throws exception when restaurant does not exists
+        restaurantService.getRestaurantById(restaurantId);
+
+        // Throws exception when dish does not exists
+        getDishById(dishId, restaurantId);
+
         dishRepository.deleteById(dishId);
     }
 
