@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.OrderItem;
 import com.att.tdp.bisbis10.entity.Restaurant;
-import com.att.tdp.bisbis10.entity.RestaurantOrder;
+import com.att.tdp.bisbis10.entity.Order;
 import com.att.tdp.bisbis10.repository.RestaurantOrderRepository;
 
 @Service
@@ -27,7 +27,9 @@ public class RestaurantOrderService {
         this.orderItemService = orderItemService;
     }
     
-    public void addRestaurantOrder(RestaurantOrder restaurantOrder) {
+    public void addRestaurantOrder(Order restaurantOrder) {
+
+
         Integer restaurantId = restaurantOrder.getRestaurantId();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         List<OrderItem> orderItems = new ArrayList<>();

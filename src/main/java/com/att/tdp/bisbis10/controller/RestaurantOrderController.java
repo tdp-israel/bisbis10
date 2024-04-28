@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att.tdp.bisbis10.entity.RestaurantOrder;
+import com.att.tdp.bisbis10.entity.Order;
 import com.att.tdp.bisbis10.service.RestaurantOrderService;
 
 @RestController
@@ -23,7 +23,7 @@ public class RestaurantOrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addRestaurantOrder(@RequestBody RestaurantOrder restaurantOrder) {
+    public void addRestaurantOrder(@RequestBody Order restaurantOrder) {
         restaurantOrderService.addRestaurantOrder(restaurantOrder);
     }
 }

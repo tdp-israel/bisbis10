@@ -1,60 +1,30 @@
 package com.att.tdp.bisbis10.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table
 public class OrderItem {
     @Id
-    @SequenceGenerator(
-        name = "order_item_sequeunce",
-        sequenceName = "order_item_sequeunce",
-        allocationSize = 1
-    )
     @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "order_item_sequeunce"
+        strategy = GenerationType.IDENTITY
     )
-    @JsonIgnore
     private Integer id;
     private Integer amount;
 
-    @OneToOne
-    @JsonIgnore
+    @ManyToOne
     private Dish dish;
 
-    @Transient
-    private Integer dishId;
-
     @ManyToOne
-    @JsonIgnore
-    RestaurantOrder order;
-
+    Order order;
 
     public OrderItem() {
-    }
-
-    public OrderItem(Integer amount, Dish dish, RestaurantOrder order) {
-        this.amount = amount;
-        this.dish = dish;
-        this.order = order;
-    }
-
-    public OrderItem(Integer id, Integer amount, Dish dish, RestaurantOrder order) {
-        this.id = id;
-        this.amount = amount;
-        this.dish = dish;
-        this.order = order;
     }
 
 
@@ -63,11 +33,10 @@ public class OrderItem {
         return "{" +
             " id='" + getId() + "'" +
             ", amount='" + getAmount() + "'" +
-            ", dishId='" + getDishId() + "'" +
-            ", orderId='" + getOrder().getId() + "'" +
+            ", dish='" + getDish().getId() + "'" +
+            ", order='" + getOrder().getId() + "'" +
             "}";
     }
-
 
     public Integer getId() {
         return this.id;
@@ -93,23 +62,12 @@ public class OrderItem {
         this.dish = dish;
     }
 
-    public RestaurantOrder getOrder() {
+    public Order getOrder() {
         return this.order;
     }
 
-    public void setOrder(RestaurantOrder order) {
+    public void setOrder(Order order) {
         this.order = order;
-    }
-
-    public Integer getDishId() {
-        if(this.dish != null) {
-            return dish.getId();
-        }
-        return this.dishId;
-    }
-
-    public void setDishId(Integer dishId) {
-        this.dishId = dishId;
     }
 
 }
