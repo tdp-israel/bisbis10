@@ -2,8 +2,10 @@ package com.att.tdp.bisbis10.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -35,13 +38,16 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine) {
+    public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine,
+                                            @RequestParam(required = false) Integer page, 
+                                            @RequestParam(required = false) Integer pageSize) {
         List<Restaurant> restaurants;
+
         if(cuisine != null) {
-            restaurants = restaurantService.getRestaurantsByCuisine(cuisine);
+            restaurants = restaurantService.getRestaurantsByCuisine(cuisine, page, pageSize);
         }
         else {
-            restaurants = restaurantService.getRestaurants();
+            restaurants = restaurantService.getRestaurants(page, pageSize);
         }
 
         return restaurants;
@@ -51,6 +57,7 @@ public class RestaurantController {
     public Restaurant getRestaurant(@PathVariable("id") Integer restaurantId) {
         return restaurantService.getRestaurantById(restaurantId);
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
