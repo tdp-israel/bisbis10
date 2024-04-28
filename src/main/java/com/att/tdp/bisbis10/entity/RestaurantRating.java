@@ -7,20 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Transient;
 
 @Entity
 public class RestaurantRating {
     @Id
-    @SequenceGenerator(
-        name = "restaurant_rating_sequeunce",
-        sequenceName = "restaurant_rating_sequeunce",
-        allocationSize = 1
-    )
     @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "restaurant_rating_sequeunce"
+        strategy = GenerationType.IDENTITY
     )
     private Integer id;
     private Float rating;
@@ -29,6 +22,7 @@ public class RestaurantRating {
     @JsonIgnore
     private Restaurant restaurant;
 
+    // if restaurant is null, getRestaurantId returns -1
     @Transient
     private Integer restaurantId;
 
@@ -57,11 +51,10 @@ public class RestaurantRating {
     }
 
     public Integer getRestaurantId() {
-        return this.restaurantId;
-    }
-
-    public void setRestaurantId(Integer restaurantId) {
-        this.restaurantId = restaurantId;
+        if(this.restaurant != null) {
+            return this.restaurant.getId();
+        }
+        return -1;
     }
 
     public float getRating() {

@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att.tdp.bisbis10.entity.RestaurantRating;
+import com.att.tdp.bisbis10.dto.RestaurantRatingRequest;
 import com.att.tdp.bisbis10.service.RestaurantRatingService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/ratings")
@@ -20,7 +22,7 @@ public class RestaurantRatingController {
     }
 
     @PostMapping
-    public void addRestaurantRating(@RequestBody RestaurantRating restaurantRating) {
-        restaurantRatingService.addRestaurantRating(restaurantRating);
+    public void addRestaurantRating(@Valid @RequestBody RestaurantRatingRequest restaurantRatingRequest) {
+        restaurantRatingService.addRestaurantRating(restaurantRatingRequest);
     }
 }

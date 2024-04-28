@@ -19,7 +19,6 @@ import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
-import com.att.tdp.bisbis10.util.DataValidator;
 
 import jakarta.validation.Valid;
 

@@ -2,7 +2,6 @@ package com.att.tdp.bisbis10.dto;
 
 import java.util.List;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class RestaurantUpdateCuisinesRequest {

@@ -46,13 +46,11 @@ public class RestaurantOrder {
         this.id = id;
         this.restaurant = restaurant;
         this.orderItems = orderItems;
-        this.restaurantId = restaurantId;
     }
 
     public RestaurantOrder(Restaurant restaurant, List<OrderItem> orderItems) {
         this.restaurant = restaurant;
         this.orderItems = orderItems;
-        this.restaurantId = restaurantId;
     }
 
 
