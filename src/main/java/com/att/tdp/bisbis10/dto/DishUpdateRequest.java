@@ -18,8 +18,7 @@ public class DishUpdateRequest {
     @Override
     public String toString() {
         return "{" +
-            " name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
+            "description='" + getDescription() + "'" +
             ", price='" + getPrice() + "'" +
             "}";
     }
