@@ -16,18 +16,19 @@ import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.exception.restaurant.RestaurantNotFoundException;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
+import com.att.tdp.bisbis10.util.PaginationUtils;
 
 
 @Service
 public class RestaurantService {
-    private Integer DEFAULT_PAGE_SIZE;
 
     private final RestaurantRepository restaurantRepository;
+    private final PaginationUtils paginationUtils;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, PaginationUtils paginationUtils) {
         this.restaurantRepository = restaurantRepository;
-        this.DEFAULT_PAGE_SIZE = 20;
+        this.paginationUtils = paginationUtils;
     }
 
 
@@ -35,11 +36,8 @@ public class RestaurantService {
         List<Restaurant> restaurants;
         
         if(page != null || pageSize != null) {
-            Pageable pageable = PageRequest.of(
-                page == null ? 0 : page, 
-                pageSize == null ? DEFAULT_PAGE_SIZE : pageSize
-            );
-
+            Pageable pageable = paginationUtils.createPageable(page, pageSize);
+            
             Page<Restaurant> restaurantsPage = restaurantRepository.findAll(
                 pageable
             );
@@ -57,10 +55,7 @@ public class RestaurantService {
         List<Restaurant> restaurants;
         
         if(page != null || pageSize != null) {
-            Pageable pageable = PageRequest.of(
-                page == null ? 0 : page, 
-                pageSize == null ? DEFAULT_PAGE_SIZE : pageSize
-            );
+            Pageable pageable = paginationUtils.createPageable(page, pageSize);
 
             Page<Restaurant> restaurantsPage = restaurantRepository.findByCuisinesContaining(
                 cuisine, pageable

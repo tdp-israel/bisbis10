@@ -1,11 +1,8 @@
 package com.att.tdp.bisbis10.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,21 +19,19 @@ import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
+import com.att.tdp.bisbis10.util.DataValidator;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/restaurants")
 public class RestaurantController {
     
     private final RestaurantService restaurantService;
-    private final DataValidator dataValidator;
 
     @Autowired
-    public RestaurantController(RestaurantService restaurantService, DataValidator dataValidator) {
+    public RestaurantController(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
-        this.dataValidator = dataValidator;
     }
 
     @GetMapping
@@ -44,7 +39,6 @@ public class RestaurantController {
                                             @RequestParam(required = false) Integer page, 
                                             @RequestParam(required = false) Integer pageSize) {
         List<Restaurant> restaurants;
-        this.dataValidator.validatePageData(page, pageSize);
 
         if(cuisine != null) {
             restaurants = restaurantService.getRestaurantsByCuisine(cuisine, page, pageSize);

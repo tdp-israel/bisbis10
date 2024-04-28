@@ -1,4 +1,4 @@
-package com.att.tdp.bisbis10.controller;
+package com.att.tdp.bisbis10.util;
 
 import org.springframework.stereotype.Component;
 
