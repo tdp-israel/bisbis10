@@ -10,6 +10,7 @@ import com.att.tdp.bisbis10.dto.DishRequest;
 import com.att.tdp.bisbis10.dto.DishUpdateRequest;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.exception.dish.DishDoesNotBelongToRestaurantException;
 import com.att.tdp.bisbis10.exception.dish.DishNotFoundException;
 import com.att.tdp.bisbis10.repository.DishRepository;
 
@@ -38,10 +39,11 @@ public class DishService {
     public Dish getDishById(Integer dishId, Integer restaurantId) {
         Optional<Dish> dish = dishRepository.findById(dishId);
         
-        if(!dish.isPresent() ||
-            dish.get().getRestaurant().getId() != restaurantId) {
-            
+        if(!dish.isPresent()) {
             throw new DishNotFoundException();
+        }
+        if(dish.get().getRestaurant().getId() != restaurantId) {
+            throw new DishDoesNotBelongToRestaurantException();
         }
 
         return dish.get();

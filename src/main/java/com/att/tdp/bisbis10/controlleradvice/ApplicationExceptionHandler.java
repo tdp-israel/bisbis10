@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.att.tdp.bisbis10.exception.InvalidValueException;
 import com.att.tdp.bisbis10.exception.ItemNotFoundException;
+import com.att.tdp.bisbis10.exception.dish.DishDoesNotBelongToRestaurantException;
 
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
@@ -62,6 +63,14 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(DishDoesNotBelongToRestaurantException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidValue(DishDoesNotBelongToRestaurantException e) {
+        
+        ErrorResponse error = createErrorResponseWithSingleMessage(
+            e, HttpStatus.NOT_FOUND.value()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 
     public ErrorResponse createErrorResponseWithSingleMessage(Exception e, Integer status) {
         List<String> errorMessages = List.of(
