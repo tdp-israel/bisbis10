@@ -1,16 +1,18 @@
 package com.att.tdp.bisbis10.controlleradvice;
 
+import java.util.List;
+
 public class ErrorResponse {
     private int status;
-    private String message;
+    private List<String> messages;
 
 
     public ErrorResponse() {
     }
 
-    public ErrorResponse(int status, String message) {
+    public ErrorResponse(int status, List<String> messages) {
         this.status = status;
-        this.message = message;
+        this.messages = messages;
     }
 
 
@@ -18,7 +20,7 @@ public class ErrorResponse {
     public String toString() {
         return "{" +
             " status='" + getStatus() + "'" +
-            ", message='" + getMessage() + "'" +
+            ", messages='" + getMessages() + "'" +
             "}";
     }
 
@@ -30,12 +32,12 @@ public class ErrorResponse {
         this.status = status;
     }
 
-    public String getMessage() {
-        return this.message;
+    public List<String> getMessages() {
+        return this.messages;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
 }
