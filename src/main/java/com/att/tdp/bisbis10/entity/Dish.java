@@ -15,14 +15,8 @@ import jakarta.persistence.Transient;
 @Table
 public class Dish {
     @Id
-    @SequenceGenerator(
-        name = "dish_sequeunce",
-        sequenceName = "dish_sequeunce",
-        allocationSize = 1
-    )
     @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "dish_sequeunce"
+        strategy = GenerationType.IDENTITY
     )
     private Integer id;
     private String name;
@@ -33,18 +27,7 @@ public class Dish {
     @JsonIgnore
     private Restaurant restaurant;
 
-    @Transient
-    private Integer restaurantId;
-
     public Dish() {
-    }
-
-    public Dish(Integer id, Restaurant restaurant, String name, String description, Float price) {
-        this.id = id;
-        this.restaurant = restaurant;
-        this.name = name;
-        this.description = description;
-        this.price = price;
     }
 
     public Dish(Restaurant restaurant, String name, String description, Float price) {
@@ -59,7 +42,7 @@ public class Dish {
     public String toString() {
         return "Dish {" +
             " id='" + getId() + "'" +
-            ", restaurantId='" + getRestaurant() + "'" +
+            ", restaurantId='" + getRestaurant().getId() + "'" +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", price='" + getPrice() + "'" +
@@ -74,20 +57,8 @@ public class Dish {
         this.id = id;
     }
 
-
-    public Integer getRestaurantId() {
-        if(restaurant != null) {
-            return this.restaurant.getId();
-        }
-        return this.restaurantId;
-    }
-
-    public void setRestaurantId(Integer restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public Integer getRestaurant() {
-        return this.restaurant.getId();
+    public Restaurant getRestaurant() {
+        return this.restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {

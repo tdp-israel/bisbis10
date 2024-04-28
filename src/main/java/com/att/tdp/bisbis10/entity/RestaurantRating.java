@@ -29,13 +29,6 @@ public class RestaurantRating {
     public RestaurantRating() {
     }
 
-
-    public RestaurantRating(Integer id, float rating, Restaurant restaurant) {
-        this.id = id;
-        this.rating = rating;
-        this.restaurant = restaurant;
-    }
-
     public RestaurantRating(float rating, Restaurant restaurant) {
         this.rating = rating;
         this.restaurant = restaurant;

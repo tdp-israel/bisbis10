@@ -39,19 +39,11 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String name, List<RestaurantRating> ratings, Boolean isKosher, List<String> cuisines) {
-        this.id = id;
-        this.name = name;
-        this.ratings = ratings;
-        this.isKosher = isKosher;
-        this.cuisines = cuisines;
-    }
-
     public Restaurant(String name, Boolean isKosher, List<String> cuisines) {
         this.name = name;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
-    }        
+    }
 
     @Override
     public String toString() {
