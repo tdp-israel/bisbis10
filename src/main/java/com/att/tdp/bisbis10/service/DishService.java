@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.att.tdp.bisbis10.dto.DishRequest;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.repository.DishRepository;
@@ -26,10 +27,17 @@ public class DishService {
         return dishes; 
     }
 
-    public void addDish(Integer restaurantId, Dish dish) {
+    public Dish addDish(Integer restaurantId, DishRequest dishRequest) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        dish.setRestaurant(restaurant);
+        Dish dish = new Dish(
+            restaurant,
+            dishRequest.getName(),
+            dishRequest.getDescription(),
+            dishRequest.getPrice()
+        );
+
         dishRepository.save(dish);
+        return dish;
     }
 
     public void deleteDish(Integer restaurantId, Integer dishId) {

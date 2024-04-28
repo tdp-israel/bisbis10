@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.att.tdp.bisbis10.dto.DishRequest;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.service.DishService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("restaurants/{restaurantId}/dishes")
@@ -34,8 +37,9 @@ public class DishController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addDish(@PathVariable Integer restaurantId, @RequestBody Dish dish) {
-        dishService.addDish(restaurantId, dish);
+    public Dish addDish(@PathVariable Integer restaurantId, @Valid @RequestBody DishRequest dishRequest) {
+        Dish newDish = dishService.addDish(restaurantId, dishRequest);
+        return newDish;
     }
 
     @DeleteMapping("/{dishId}")
