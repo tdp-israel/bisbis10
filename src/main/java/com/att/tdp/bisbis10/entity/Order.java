@@ -24,7 +24,6 @@ public class Order {
     private Integer id;
 
     @OneToMany(mappedBy = "order")
-    @ElementCollection
     @JsonIgnore
     private List<OrderItem> orderItems;
     
