@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.att.tdp.bisbis10.exception.InvalidValueException;
 import com.att.tdp.bisbis10.exception.ItemNotFoundException;
@@ -33,9 +34,20 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    // Handles Json Parsing Errors - when data is received with the wrong type
+    // Handles Json Parsing Errors - when data is received with the wrong type in the RequestBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleInvalidDatatypeArgument(HttpMessageNotReadableException e) {
+        
+        ErrorResponse error = createErrorResponseWithSingleMessage(
+            e, HttpStatus.BAD_REQUEST.value()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    // Handles Json Parsing Errors - when data is received with the wrong type in the url(query/param)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidDatatypeArgument(MethodArgumentTypeMismatchException e) {
         
         ErrorResponse error = createErrorResponseWithSingleMessage(
             e, HttpStatus.BAD_REQUEST.value()
