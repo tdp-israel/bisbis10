@@ -7,6 +7,7 @@ import com.att.tdp.utils.MathUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Restaurant {
         strategy = GenerationType.IDENTITY
     )
     private Integer id;
+    @Column(columnDefinition = "varchar(60)")
     private String name;
     private Boolean isKosher;
 

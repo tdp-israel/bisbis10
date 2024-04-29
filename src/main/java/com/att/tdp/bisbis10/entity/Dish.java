@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,9 @@ public class Dish {
         strategy = GenerationType.IDENTITY
     )
     private Integer id;
+    @Column(columnDefinition = "varchar(60)")
     private String name;
+    @Column(columnDefinition = "varchar(300)")
     private String description;
     private Float price;
 
