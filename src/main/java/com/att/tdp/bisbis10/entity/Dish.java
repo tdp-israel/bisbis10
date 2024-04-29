@@ -1,12 +1,16 @@
 package com.att.tdp.bisbis10.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,9 +25,13 @@ public class Dish {
     private String description;
     private Float price;
 
-    @ManyToOne
     @JsonIgnore
+    @ManyToOne
     private Restaurant restaurant;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
 
     public Dish() {
     }

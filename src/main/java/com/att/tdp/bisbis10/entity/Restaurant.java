@@ -3,9 +3,12 @@ package com.att.tdp.bisbis10.entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.annotations.Cascade;
+
 import com.att.tdp.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,9 +35,16 @@ public class Restaurant {
     private float averageRating;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RestaurantRating> ratings;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dish> dishes;
 
     public Restaurant() {
     }
