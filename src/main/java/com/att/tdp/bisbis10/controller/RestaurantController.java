@@ -49,8 +49,8 @@ public class RestaurantController {
         return restaurants;
     }
 
-    @GetMapping("/{id}")
-    public Restaurant getRestaurant(@PathVariable("id") Integer restaurantId) {
+    @GetMapping("/{restaurantId}")
+    public Restaurant getRestaurant(@PathVariable Integer restaurantId) {
         return restaurantService.getRestaurantById(restaurantId);
     }
 
@@ -62,16 +62,16 @@ public class RestaurantController {
         return newRestaurant;
     }
 
-    @PutMapping("/{id}")
-    public Restaurant updateRestaurant(@PathVariable("id") Integer restaurantId, 
+    @PutMapping("/{restaurantId}")
+    public Restaurant updateRestaurant(@PathVariable Integer restaurantId, 
                                  @RequestBody @Valid RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
         Restaurant updatedRestaurant = restaurantService.updateRestaurantCuisines(restaurantId, restaurantUpdateCuisinesRequest);
         return updatedRestaurant;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{restaurantId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRestaurant(@PathVariable("id") Integer restaurantId) {
+    public void deleteRestaurant(@PathVariable Integer restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);
     }
 }
