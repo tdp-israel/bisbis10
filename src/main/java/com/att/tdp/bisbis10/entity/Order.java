@@ -3,7 +3,9 @@ package com.att.tdp.bisbis10.entity;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -21,6 +23,7 @@ public class Order {
     @GeneratedValue(
         strategy = GenerationType.UUID
     )
+    @JsonProperty("orderId")
     private UUID id;
 
     @JsonIgnore

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.att.tdp.bisbis10.dto.OrderItemDTO;
 import com.att.tdp.bisbis10.dto.OrderRequest;
-import com.att.tdp.bisbis10.dto.OrderResponse;
 import com.att.tdp.bisbis10.entity.Dish;
 import com.att.tdp.bisbis10.entity.OrderItem;
 import com.att.tdp.bisbis10.entity.Restaurant;
@@ -30,7 +29,7 @@ public class OrderService {
         this.orderItemService = orderItemService;
     }
     
-    public OrderResponse addOrder(OrderRequest orderRequest) {
+    public Order addOrder(OrderRequest orderRequest) {
         Restaurant restaurant = restaurantService.getRestaurantById(
             orderRequest.getRestaurantId()
         );
@@ -59,6 +58,6 @@ public class OrderService {
             orderItemService.addOrderItem(orderItem)
         );
 
-        return new OrderResponse(order.getId());
+        return order;
     }
 }

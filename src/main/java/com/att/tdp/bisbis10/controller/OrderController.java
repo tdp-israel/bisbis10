@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.att.tdp.bisbis10.dto.OrderRequest;
-import com.att.tdp.bisbis10.dto.OrderResponse;
+import com.att.tdp.bisbis10.entity.Order;
 import com.att.tdp.bisbis10.service.OrderService;
 
 import jakarta.validation.Valid;
@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> addOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        OrderResponse orderResponse = orderService.addOrder(orderRequest);
+    public ResponseEntity<Order> addOrder(@Valid @RequestBody OrderRequest orderRequest) {
+        Order orderResponse = orderService.addOrder(orderRequest);
         return new ResponseEntity<>(orderResponse, HttpStatus.OK);
     }
 }
