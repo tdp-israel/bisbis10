@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
+import com.att.tdp.bisbis10.dto.RestaurantWithDishesDTO;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 
@@ -50,8 +51,8 @@ public class RestaurantController {
     }
 
     @GetMapping("/{restaurantId}")
-    public ResponseEntity<Restaurant> getRestaurant(@PathVariable Integer restaurantId) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+    public ResponseEntity<RestaurantWithDishesDTO> getRestaurant(@PathVariable Integer restaurantId) {
+        RestaurantWithDishesDTO restaurant = restaurantService.getRestaurantWithDishesById(restaurantId);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 

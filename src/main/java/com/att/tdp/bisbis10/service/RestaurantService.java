@@ -1,5 +1,6 @@
 package com.att.tdp.bisbis10.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.att.tdp.bisbis10.dto.RestaurantRequest;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateCuisinesRequest;
+import com.att.tdp.bisbis10.dto.RestaurantWithDishesDTO;
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.exception.restaurant.RestaurantNotFoundException;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
@@ -86,6 +88,10 @@ public class RestaurantService {
         return restaurant.get();
     }
 
+    public RestaurantWithDishesDTO getRestaurantWithDishesById(Integer restaurantId) {
+        return createRestaurantWithDishesDTO(getRestaurantById(restaurantId));
+    }
+
     public Restaurant addRestaurant(RestaurantRequest restaurantRequest) {
         Restaurant restaurant = new Restaurant(
             restaurantRequest.getName(),
@@ -122,5 +128,28 @@ public class RestaurantService {
         }
         
         restaurantRepository.deleteById(restaurantId);
+    }
+
+
+    private List<RestaurantWithDishesDTO> createRestaurantWithDishesDTOs(List<Restaurant> restaurants) {
+        List<RestaurantWithDishesDTO> restaurantWithDishes = new ArrayList<>();
+        
+        restaurants.forEach(restaurant -> 
+            restaurantWithDishes.add(
+                createRestaurantWithDishesDTO(restaurant)
+            )
+        );
+        return restaurantWithDishes;
+    }
+
+    private RestaurantWithDishesDTO createRestaurantWithDishesDTO(Restaurant restaurant) {
+        return new RestaurantWithDishesDTO(
+            restaurant.getId(),
+            restaurant.getName(),
+            restaurant.getIsKosher(),
+            restaurant.getCuisines(),
+            restaurant.getAverageRating(),
+            restaurant.getDishes()
+        );
     }
 }

@@ -124,4 +124,24 @@ public class Restaurant {
     public void setCuisines(Set<String> cuisines) {
         this.cuisines = cuisines;
     }
+
+    public Boolean isIsKosher() {
+        return this.isKosher;
+    }
+
+    public List<Order> getOrders() {
+        return this.orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Dish> getDishes() {
+        return this.dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
 }
