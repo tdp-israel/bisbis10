@@ -1,6 +1,8 @@
 package com.att.tdp.bisbis10.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +25,8 @@ public class OrderController {
     }
 
     @PostMapping
-    // @ResponseStatus(HttpStatus.CREATED)
-    public OrderResponse addOrder(@Valid @RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderResponse> addOrder(@Valid @RequestBody OrderRequest orderRequest) {
         OrderResponse orderResponse = orderService.addOrder(orderRequest);
-        return orderResponse;
+        return new ResponseEntity<>(orderResponse, HttpStatus.OK);
     }
 }

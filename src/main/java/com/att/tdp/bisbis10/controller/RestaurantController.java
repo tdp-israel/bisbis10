@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine,
+    public ResponseEntity<List<Restaurant>> getRestaurants(@RequestParam(required = false) String cuisine,
                                             @RequestParam(required = false) Integer page, 
                                             @RequestParam(required = false) Integer pageSize) {
         List<Restaurant> restaurants;
@@ -46,32 +47,32 @@ public class RestaurantController {
             restaurants = restaurantService.getRestaurants(page, pageSize);
         }
 
-        return restaurants;
+        return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
     @GetMapping("/{restaurantId}")
-    public Restaurant getRestaurant(@PathVariable Integer restaurantId) {
-        return restaurantService.getRestaurantById(restaurantId);
+    public ResponseEntity<Restaurant> getRestaurant(@PathVariable Integer restaurantId) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Restaurant addRestaurant(@RequestBody @Valid RestaurantRequest restaurant) {
+    public ResponseEntity<Restaurant> addRestaurant(@RequestBody @Valid RestaurantRequest restaurant) {
         Restaurant newRestaurant = restaurantService.addRestaurant(restaurant);
-        return newRestaurant;
+        return new ResponseEntity<>(newRestaurant, HttpStatus.CREATED);
     }
 
     @PutMapping("/{restaurantId}")
-    public Restaurant updateRestaurant(@PathVariable Integer restaurantId, 
+    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable Integer restaurantId, 
                                  @RequestBody @Valid RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
         Restaurant updatedRestaurant = restaurantService.updateRestaurantCuisines(restaurantId, restaurantUpdateCuisinesRequest);
-        return updatedRestaurant;
+        return new ResponseEntity<>(updatedRestaurant, HttpStatus.OK);
     }
 
     @DeleteMapping("/{restaurantId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRestaurant(@PathVariable Integer restaurantId) {
+    public ResponseEntity<Void> deleteRestaurant(@PathVariable Integer restaurantId) {
         restaurantService.deleteRestaurant(restaurantId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,31 +34,30 @@ public class DishController {
     }
 
     @GetMapping
-    public List<Dish> getDishesByRestaurantId(@PathVariable Integer restaurantId,
+    public ResponseEntity<List<Dish>> getDishesByRestaurantId(@PathVariable Integer restaurantId,
                         @RequestParam(required = false) Integer page, 
                         @RequestParam(required = false) Integer pageSize) {
         List<Dish> dishes = dishService.getDishesByRestaurantId(restaurantId, page, pageSize);
-        return dishes;
+        return new ResponseEntity<>(dishes, HttpStatus.OK);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Dish addDish(@PathVariable Integer restaurantId, @Valid @RequestBody DishRequest dishRequest) {
+    public ResponseEntity<Dish> addDish(@PathVariable Integer restaurantId, @Valid @RequestBody DishRequest dishRequest) {
         Dish newDish = dishService.addDish(restaurantId, dishRequest);
-        return newDish;
+        return new ResponseEntity<>(newDish, HttpStatus.CREATED);
     }
 
     @PutMapping("/{dishId}")
-    public Dish updateDish(@PathVariable Integer restaurantId,
+    public ResponseEntity<Dish> updateDish(@PathVariable Integer restaurantId,
             @PathVariable Integer dishId, 
             @Valid @RequestBody DishUpdateRequest dishUpdateRequest)  {
         Dish updatedDish = dishService.updatedDish(restaurantId, dishId, dishUpdateRequest);
-        return updatedDish;
+        return new ResponseEntity<>(updatedDish, HttpStatus.OK);
     }
 
     @DeleteMapping("/{dishId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteDish(@PathVariable Integer restaurantId, @PathVariable Integer dishId) {
+    public ResponseEntity<Void> deleteDish(@PathVariable Integer restaurantId, @PathVariable Integer dishId) {
         dishService.deleteDish(restaurantId, dishId);
+        return ResponseEntity.noContent().build();
     }
 }

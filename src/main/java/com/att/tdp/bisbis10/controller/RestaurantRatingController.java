@@ -1,6 +1,8 @@
 package com.att.tdp.bisbis10.controller;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,8 @@ public class RestaurantRatingController {
     }
 
     @PostMapping
-    // @ResponseStatus(HttpStatus.CREATED)
-    public void addRestaurantRating(@Valid @RequestBody RestaurantRatingRequest restaurantRatingRequest) {
+    public ResponseEntity<Void> addRestaurantRating(@Valid @RequestBody RestaurantRatingRequest restaurantRatingRequest) {
         restaurantRatingService.addRestaurantRating(restaurantRatingRequest);
+        return ResponseEntity.ok().build();
     }
 }
