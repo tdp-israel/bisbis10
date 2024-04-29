@@ -22,6 +22,7 @@ public class RestaurantRatingController {
     }
 
     @PostMapping
+    // @ResponseStatus(HttpStatus.CREATED)
     public void addRestaurantRating(@Valid @RequestBody RestaurantRatingRequest restaurantRatingRequest) {
         restaurantRatingService.addRestaurantRating(restaurantRatingRequest);
     }
