@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import org.hibernate.annotations.Cascade;
 
-import com.att.tdp.utils.Utils;
+import com.att.tdp.utils.MathUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -83,17 +83,17 @@ public class Restaurant {
     }
 
     public Float getAverageRating() {
+        Float average = 0f;
+
         if(this.ratings != null) {
             List<Float> ratings = this.ratings.stream()
                 .map(RestaurantRating::getRating)
                 .collect(Collectors.toList());
-            return Utils.average(ratings);
+            average = MathUtils.average(ratings);
         }
-        return this.averageRating;
-    }
-
-    public void setAverageRating(Float averageRating) {
-        this.averageRating = averageRating;
+        
+        average = MathUtils.roundTo2Decimals(average);
+        return average;
     }
 
     public List<RestaurantRating> getRatings() {
