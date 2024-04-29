@@ -1,6 +1,7 @@
 package com.att.tdp.bisbis10.entity;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.att.tdp.utils.MathUtils;
@@ -29,7 +30,7 @@ public class Restaurant {
     private Boolean isKosher;
 
     @ElementCollection
-    private List<String> cuisines;
+    private Set<String> cuisines;
 
     @Transient
     private float averageRating;
@@ -49,7 +50,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String name, Boolean isKosher, List<String> cuisines) {
+    public Restaurant(String name, Boolean isKosher, Set<String> cuisines) {
         this.name = name;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
@@ -116,11 +117,11 @@ public class Restaurant {
         this.averageRating = averageRating;
     }
 
-    public List<String> getCuisines() {
+    public Set<String> getCuisines() {
         return this.cuisines;
     }
 
-    public void setCuisines(List<String> cuisines) {
+    public void setCuisines(Set<String> cuisines) {
         this.cuisines = cuisines;
     }
 }

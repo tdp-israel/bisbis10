@@ -1,13 +1,13 @@
 package com.att.tdp.bisbis10.dto;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.validation.constraints.NotNull;
 
 public class RestaurantUpdateCuisinesRequest {
     
     @NotNull(message = "Cuisines must be a list of strings!")
-    private List<String> cuisines;
+    private Set<String> cuisines;
 
 
     @Override
@@ -17,12 +17,12 @@ public class RestaurantUpdateCuisinesRequest {
             "}";
     }
 
-    public List<String> getCuisines() {
+    public Set<String> getCuisines() {
         System.out.println(this.cuisines);
         return this.cuisines;
     }
 
-    public void setCuisines(List<String> cuisines) {
+    public void setCuisines(Set<String> cuisines) {
         this.cuisines = cuisines;
     }
     

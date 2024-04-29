@@ -1,6 +1,6 @@
 package com.att.tdp.bisbis10.dto;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ public class RestaurantRequest {
     @NotNull(message = "Restaurant kosher status must be provided!")
     private Boolean isKosher;
     @NotNull(message = "Cuisines must be a list of strings!")
-    private List<String> cuisines;
+    private Set<String> cuisines;
 
 
     @Override
@@ -44,11 +44,11 @@ public class RestaurantRequest {
         this.isKosher = isKosher;
     }
 
-    public List<String> getCuisines() {
+    public Set<String> getCuisines() {
         return this.cuisines;
     }
 
-    public void setCuisines(List<String> cuisines) {
+    public void setCuisines(Set<String> cuisines) {
         this.cuisines = cuisines;
     }
 

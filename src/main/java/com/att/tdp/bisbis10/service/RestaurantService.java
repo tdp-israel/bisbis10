@@ -2,7 +2,7 @@ package com.att.tdp.bisbis10.service;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -99,7 +99,7 @@ public class RestaurantService {
 
     public Restaurant updateRestaurantCuisines(Integer restaurantId, 
                                  RestaurantUpdateCuisinesRequest restaurantUpdateCuisinesRequest) {
-        List<String> cuisines = restaurantUpdateCuisinesRequest.getCuisines();
+        Set<String> cuisines = restaurantUpdateCuisinesRequest.getCuisines();
         Restaurant restaurant;
 
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(restaurantId);
