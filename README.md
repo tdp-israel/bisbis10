@@ -51,8 +51,8 @@ amount: min = 1
 
 | API Description           | Endpoint                | Request Body                             | Response Status | Response Body                                                     |
 |---------------------------|-------------------------|------------------------------------------|-----------------|------------------------------------------------------------------|
-| Add a dish                | POST /restaurants/{id}/dishes | {"name":"Shakshuka","description":"Great one","price": 34} | 201 CREATED     |                                                                  |
-| Update a dish             | PUT /restaurants/{id}/dishes/{dishId} | {"description":"Great one","price": 34} | 200 OK          |                                                                  |
+| Add a dish                | POST /restaurants/{id}/dishes | {"name":"Shakshuka","description":"Great one","price": 34} | 201 CREATED     | {"id":"2","name":"Shakshuka","description":"Great one","price": 34} |
+| Update a dish             | PUT /restaurants/{id}/dishes/{dishId} | {"description":"The Best!","price": 35} | 200 OK          | {"id":"2","name":"Shakshuka","description":"The Best!","price": 35} |
 | Delete a dish             | DELETE /restaurants/{id}/dishes/{dishId} |                                        | 204 No Content  |                                                                  |
 | Get dishes by a restaurant| GET /restaurants/{id}/dishes  |                                         | 200 OK          | [{"id":"1","name":"Humus","description":"Good one","price": 48}] |
 
