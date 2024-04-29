@@ -21,7 +21,6 @@ public class Order {
     @GeneratedValue(
         strategy = GenerationType.UUID
     )
-    @JsonIgnore
     private UUID id;
 
     @JsonIgnore
