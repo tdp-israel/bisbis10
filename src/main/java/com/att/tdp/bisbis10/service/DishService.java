@@ -35,11 +35,11 @@ public class DishService {
         
         if(page != null | pageSize != null) {
             Pageable pageable = PaginationUtils.createPageable(page, pageSize);
-            Page<Dish> dishesPage = dishRepository.getDishesByRestaurantId(restaurantId, pageable);
+            Page<Dish> dishesPage = dishRepository.findByRestaurantId(restaurantId, pageable);
             dishes = dishesPage.getContent();
         }
         else {
-            dishes = dishRepository.getDishesByRestaurantId(restaurantId);
+            dishes = dishRepository.findByRestaurantId(restaurantId);
         }
 
         return dishes; 
