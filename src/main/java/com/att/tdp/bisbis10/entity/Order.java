@@ -1,6 +1,7 @@
 package com.att.tdp.bisbis10.entity;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,10 +19,10 @@ import jakarta.persistence.Table;
 public class Order {
     @Id
     @GeneratedValue(
-        strategy = GenerationType.IDENTITY
+        strategy = GenerationType.UUID
     )
     @JsonIgnore
-    private Integer id;
+    private UUID id;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,11 +54,11 @@ public class Order {
             "}";
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
