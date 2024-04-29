@@ -3,10 +3,10 @@ package com.att.tdp.bisbis10.exception.restaurant;
 import com.att.tdp.bisbis10.exception.ItemNotFoundException;
 
 public class RestaurantNotFoundException extends ItemNotFoundException {
-    static String message = "No restaurant found with this id!";
+    static String message = "No restaurant found with id ";
 
-    public RestaurantNotFoundException() {
-        super(RestaurantNotFoundException.message);
+    public RestaurantNotFoundException(Integer restaurantId) {
+        super(RestaurantNotFoundException.message + restaurantId);
     }
 
     public RestaurantNotFoundException(String message) {

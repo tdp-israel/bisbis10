@@ -80,7 +80,7 @@ public class RestaurantService {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
         
         if(!restaurant.isPresent()) {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(restaurantId);
         }
 
         return restaurant.get();
@@ -105,7 +105,7 @@ public class RestaurantService {
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(restaurantId);
 
         if(!restaurantExists.isPresent()) {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(restaurantId);
         }
 
         restaurant = restaurantExists.get();
@@ -118,7 +118,7 @@ public class RestaurantService {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 
         if(!restaurant.isPresent()) {
-            throw new RestaurantNotFoundException();
+            throw new RestaurantNotFoundException(restaurantId);
         }
         
         restaurantRepository.deleteById(restaurantId);

@@ -52,10 +52,10 @@ public class DishService {
         Optional<Dish> dish = dishRepository.findById(dishId);
         
         if(!dish.isPresent()) {
-            throw new DishNotFoundException();
+            throw new DishNotFoundException(dishId);
         }
         if(dish.get().getRestaurant().getId() != restaurantId) {
-            throw new DishDoesNotBelongToRestaurantException();
+            throw new DishDoesNotBelongToRestaurantException(dishId, restaurantId);
         }
 
         return dish.get();

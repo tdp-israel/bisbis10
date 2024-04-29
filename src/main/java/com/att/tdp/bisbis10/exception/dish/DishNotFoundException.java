@@ -3,10 +3,10 @@ package com.att.tdp.bisbis10.exception.dish;
 import com.att.tdp.bisbis10.exception.ItemNotFoundException;
 
 public class DishNotFoundException extends ItemNotFoundException {
-    static String message = "No dish found with this id!";
+    static String message = "No dish found with id ";
 
-    public DishNotFoundException() {
-        super(DishNotFoundException.message);
+    public DishNotFoundException(Integer dishId) {
+        super(DishNotFoundException.message + dishId);
     }
 
     public DishNotFoundException(String message) {
