@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.att.tdp.bisbis10.dto.OrderRequest;
+import com.att.tdp.bisbis10.dto.OrderResponse;
+import com.att.tdp.bisbis10.entity.Order;
 import com.att.tdp.bisbis10.service.OrderService;
 
 import jakarta.validation.Valid;
@@ -25,7 +27,8 @@ public class OrderController {
 
     @PostMapping
     // @ResponseStatus(HttpStatus.CREATED)
-    public void addOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        orderService.addOrder(orderRequest);
+    public OrderResponse addOrder(@Valid @RequestBody OrderRequest orderRequest) {
+        OrderResponse orderResponse = orderService.addOrder(orderRequest);
+        return orderResponse;
     }
 }
