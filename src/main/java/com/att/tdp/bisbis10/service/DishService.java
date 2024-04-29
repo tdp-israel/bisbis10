@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.att.tdp.bisbis10.dto.DishRequest;
@@ -13,6 +15,7 @@ import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.exception.dish.DishDoesNotBelongToRestaurantException;
 import com.att.tdp.bisbis10.exception.dish.DishNotFoundException;
 import com.att.tdp.bisbis10.repository.DishRepository;
+import com.att.tdp.bisbis10.util.PaginationUtils;
 
 @Service
 public class DishService {
@@ -25,11 +28,20 @@ public class DishService {
         this.restaurantService = restaurantService;
     }
 
-    public List<Dish> getDishesByRestaurantId(Integer restaurantId) {
+    public List<Dish> getDishesByRestaurantId(Integer restaurantId, Integer page, Integer pageSize) {
         // Throws exception when restaurant does not exists
         restaurantService.getRestaurantById(restaurantId);
+        List<Dish> dishes;
         
-        List<Dish> dishes = dishRepository.getDishesByRestaurantId(restaurantId);
+        if(page != null | pageSize != null) {
+            Pageable pageable = PaginationUtils.createPageable(page, pageSize);
+            Page<Dish> dishesPage = dishRepository.getDishesByRestaurantId(restaurantId, pageable);
+            dishes = dishesPage.getContent();
+        }
+        else {
+            dishes = dishRepository.getDishesByRestaurantId(restaurantId);
+        }
+
         return dishes; 
     }
 

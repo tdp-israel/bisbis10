@@ -22,12 +22,10 @@ import com.att.tdp.bisbis10.util.PaginationUtils;
 public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
-    private final PaginationUtils paginationUtils;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository, PaginationUtils paginationUtils) {
+    public RestaurantService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
-        this.paginationUtils = paginationUtils;
     }
 
 
@@ -35,7 +33,7 @@ public class RestaurantService {
         List<Restaurant> restaurants;
         
         if(page != null || pageSize != null) {
-            Pageable pageable = paginationUtils.createPageable(page, pageSize);
+            Pageable pageable = PaginationUtils.createPageable(page, pageSize);
             
             Page<Restaurant> restaurantsPage = restaurantRepository.findAll(
                 pageable
@@ -54,7 +52,7 @@ public class RestaurantService {
         List<Restaurant> restaurants;
         
         if(page != null || pageSize != null) {
-            Pageable pageable = paginationUtils.createPageable(page, pageSize);
+            Pageable pageable = PaginationUtils.createPageable(page, pageSize);
 
             Page<Restaurant> restaurantsPage = restaurantRepository.findByCuisinesContaining(
                 cuisine, pageable
