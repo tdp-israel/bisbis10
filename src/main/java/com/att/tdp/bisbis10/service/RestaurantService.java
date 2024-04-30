@@ -69,15 +69,6 @@ public class RestaurantService {
         return restaurants;
     }
 
-
-    public Page<Restaurant> getRestaurantsByCuisine(String cuisine, int page, int pageSize) {
-        Pageable pageable = PageRequest.of(0, 10);
-        Page<Restaurant> restaurantsPage = restaurantRepository.findByCuisinesContaining(
-            cuisine, pageable
-        );
-        return restaurantsPage;
-    }
-    
     public Restaurant getRestaurantById(Integer restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
         
