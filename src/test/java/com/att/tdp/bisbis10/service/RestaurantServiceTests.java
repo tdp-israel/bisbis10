@@ -1,10 +1,13 @@
 package com.att.tdp.bisbis10.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import com.att.tdp.bisbis10.entity.Restaurant;
+import com.att.tdp.bisbis10.exception.restaurant.RestaurantNotFoundException;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
 import com.att.tdp.bisbis10.testutils.RestaurantTestUtils;
 
@@ -155,4 +159,19 @@ public class RestaurantServiceTests {
         assertEquals(expected6, result6);
     }
 
+    @Test
+    void testDeleteRestaurant_ExistingId() {
+        int restaurantId = 1;
+        when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.of(mockRestaurant));
+
+        assertDoesNotThrow(() -> restaurantService.deleteRestaurant(restaurantId));
+    }
+
+    @Test
+    void testDeleteRestaurant_NonExistingId() {
+        int restaurantId = 100;
+        when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.empty());
+
+        assertThrows(RestaurantNotFoundException.class, () -> restaurantService.deleteRestaurant(restaurantId));
+    }
 }
