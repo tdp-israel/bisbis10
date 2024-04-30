@@ -56,6 +56,24 @@ public class Restaurant {
         this.cuisines = cuisines;
     }
 
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Restaurant other = (Restaurant) obj;
+        
+        return 
+            (id == null || id.equals(id)) &&
+            name.equals(other.name) &&
+            isKosher.equals(other.isKosher) &&
+            cuisines.equals(other.cuisines);
+    }
+
     @Override
     public String toString() {
         return "Restaurant {" +
