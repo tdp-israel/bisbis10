@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import com.att.tdp.bisbis10.entity.Restaurant;
 import com.att.tdp.bisbis10.exception.restaurant.RestaurantNotFoundException;
@@ -26,6 +27,7 @@ import com.att.tdp.bisbis10.repository.RestaurantRepository;
 import com.att.tdp.bisbis10.testutils.RestaurantTestUtils;
 
 @ExtendWith(MockitoExtension.class)
+@DirtiesContext
 public class RestaurantServiceTests {
     
 
