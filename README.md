@@ -20,15 +20,14 @@ Candidates are expected to design and implement the above APIs, adhering to REST
 
 ### Restaurants APIs
 
-| API Description           | Endpoint                | Request Body                                             | Response Status | Response Body                                                                                           |
-|---------------------------|-------------------------|----------------------------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------|
-| Get all restaurants       | GET /restaurants        |                                                          | 200 OK          | [{"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"]}] |
-| Get restaurants by cuisine| GET /restaurants?cuisine={cuisine} |                                                         | 200 OK          | [{"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"]}] |
-| Get restaurant            | GET /restaurants/{id}      |                                                          | 200 OK          | {"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"],"dishes": [{"id": "1","name": "Noodles","description": "Amazing one","price": 59}]} |
-| Add a restaurant          | POST /restaurants       | {"name": "Taizu","isKosher": false,"cuisines": ["Asian","Mexican","Indian"]} | 201 CREATED     |                                                                                                        |
-| Update a restaurant       | PUT /restaurants/{id}     | {"cuisines": ["Asian"]}                                 | 200 OK          |                                                                                                        |
-| Delete a restaurant       | DELETE /restaurants/{id}    |                                                          | 204 No Content  |                                                                                                        |
-
+| API Description               | Endpoint                              | Request Body                                                                  | Response Status | Response Body |
+|-------------------------------|---------------------------------------|-------------------------------------------------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------|
+| Get all restaurants           | GET /restaurants                      |                                                                               | 200 OK          | [{"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"]}] |
+| Get restaurants by cuisine    | GET /restaurants?cuisine={cuisine}    |                                                                               | 200 OK          | [{"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"]}] |
+| Get restaurant                | GET /restaurants/{id}                 |                                                                               | 200 OK          | {"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"],"dishes": [{"id": "1","name": "Noodles","description": "Amazing one","price": 59}]} |
+| Add a restaurant              | POST /restaurants                     | {"name": "Taizu","isKosher": false,"cuisines": ["Asian","Mexican","Indian"]}  | 201 CREATED     | {"id": "1","name": "Taizu","averageRating" : 0.00,"isKosher" : false,"cuisines": ["Asian","Mexican","Indian"]} |
+| Update a restaurant           | PUT /restaurants/{id}                 | {"cuisines": ["Asian"]}                                                       | 200 OK          | {"id": "1","name": "Taizu","averageRating" : 4.83,"isKosher" : false,"cuisines": ["Asian"]} |
+| Delete a restaurant           | DELETE /restaurants/{id}              |                                                                               | 204 No Content  | |
 
 ### Ratings APIs
 
@@ -36,26 +35,35 @@ Candidates are expected to design and implement the above APIs, adhering to REST
 |---------------------------|------------------------|---------------------------------------|-----------------|---------------|
 | Add a restaurant rating   | POST /ratings          | {"restaurantId": 2, "rating":3.3}     | 200 OK          |               |
 
+#### Constraints Note:
+rating: min = 1, max = 5
+
 ### Order APIs
 
 | API Description           | Endpoint               | Request Body                          | Response Status | Response Body |
 |---------------------------|------------------------|---------------------------------------|-----------------|---------------|
-| Order    | POST /order          | {"restaurantId": 2, "orderItems":[{"dishId":12,"amount":1},{"dishId":14,"amount":1} ]} ]   | 200 OK          |  {orderId:"ef401fc8-d545-424b-928d-4789cd47bb6e"}             |
+| Order    | POST /order          | {"restaurantId": 2, "orderItems":[{"dishId":12,"amount":1},{"dishId":14,"amount":1} ]}  | 200 OK          |  {orderId:"ef401fc8-d545-424b-928d-4789cd47bb6e"}             |
+
+#### Constraints Note:
+amount: min = 1 
 
 ### Dishes APIs
 
 | API Description           | Endpoint                | Request Body                             | Response Status | Response Body                                                     |
 |---------------------------|-------------------------|------------------------------------------|-----------------|------------------------------------------------------------------|
-| Add a dish                | POST /restaurants/{id}/dishes | {"name":"Shakshuka","description":"Great one","price": 34} | 201 CREATED     |                                                                  |
-| Update a dish             | PUT /restaurants/{id}/dishes/{dishId} | {"description":"Great one","price": 34} | 200 OK          |                                                                  |
+| Add a dish                | POST /restaurants/{id}/dishes | {"name":"Shakshuka","description":"Great one","price": 34} | 201 CREATED     | {"id":"2","name":"Shakshuka","description":"Great one","price": 34} |
+| Update a dish             | PUT /restaurants/{id}/dishes/{dishId} | {"description":"The Best!","price": 35} | 200 OK          | {"id":"2","name":"Shakshuka","description":"The Best!","price": 35} |
 | Delete a dish             | DELETE /restaurants/{id}/dishes/{dishId} |                                        | 204 No Content  |                                                                  |
 | Get dishes by a restaurant| GET /restaurants/{id}/dishes  |                                         | 200 OK          | [{"id":"1","name":"Humus","description":"Good one","price": 48}] |
+
+#### Constraints Note:
+price: min = 0
 
 ## Jump Start
 For your convenience, compose.yml includes Postgresql DB, the app is already pointing to this connection. In addition, you have the schema and data SQL files that can setup your DB schema and init data.
 
 ## Prerequisite
-1. Java SDK - https://www.oracle.com/java/technologies/downloads/#java21
+1. Java SDK (java 21) - https://www.oracle.com/java/technologies/downloads/#java21
 2. Java IDE - https://www.jetbrains.com/idea/download or any other IDE
 3. Docker - https://www.docker.com/products/docker-desktop/
 
