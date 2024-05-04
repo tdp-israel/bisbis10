@@ -37,7 +37,6 @@ public class RestaurantService {
 
     public void editRestaurant(Long id, RestaurantDTO newRestaurantDTO) {
         getRestaurantById(id).ifPresent(restaurant -> {
-//            if(newRestaurant.isKosher() != null) restaurant.setKosher(newRestaurant.isKosher());
             if (newRestaurantDTO.cuisines() != null) restaurant.setCuisines(newRestaurantDTO.cuisines());
             if (newRestaurantDTO.name() != null) restaurant.setName(newRestaurantDTO.name());
             if (newRestaurantDTO.isKosher() != null) restaurant.setIsKosher(newRestaurantDTO.isKosher());
@@ -49,19 +48,7 @@ public class RestaurantService {
         repository.deleteById(id);
     }
 
-    public void addRating(Long restId, float rating){
-        Optional<Restaurant> rest = getRestaurantById(restId);
-        try{
-            if(rest.isPresent()){
-                Restaurant res = rest.get();
-                res.setRating(rating);
-                repository.save(res);
-            }
 
-        } catch(Exception ignored){
-        }
-
-    }
     public Restaurant restaurantDtoToEntity(RestaurantDTO restaurantDTO){
         Restaurant restaurant = new Restaurant();
         restaurant.setName(restaurantDTO.name());
