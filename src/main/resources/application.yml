@@ -10,6 +10,7 @@ spring:
     password: bisbis10
     driverClassName: org.postgresql.Driver
     platform: postgres
+    initialization-mode: always
   jpa:
     database: POSTGRESQL
     show-sql: true
