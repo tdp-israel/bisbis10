@@ -62,7 +62,6 @@ public class RestaurantService {
         }
 
     }
-
     public Restaurant restaurantDtoToEntity(RestaurantDTO restaurantDTO){
         Restaurant restaurant = new Restaurant();
         restaurant.setName(restaurantDTO.name());
