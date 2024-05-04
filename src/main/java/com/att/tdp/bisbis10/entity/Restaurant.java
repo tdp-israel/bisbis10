@@ -26,11 +26,11 @@ public class Restaurant {
     }
 
     public Restaurant() {}
-    public Restaurant(String name, boolean is_kosher, List<String> cuisines){
-        this.name=name;
-        this.isKosher = is_kosher;
-        this.cuisines=cuisines;
-    }
+//    public Restaurant(String name, boolean is_kosher, List<String> cuisines){
+//        this.name=name;
+//        this.isKosher = is_kosher;
+//        this.cuisines=cuisines;
+//    }
 
 
     public void setId(Long id) {

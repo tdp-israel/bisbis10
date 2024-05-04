@@ -37,8 +37,10 @@ public class DishService {
         if(toUpdate==null) return null;
         if(newDish.description()!= null) toUpdate.setDescription(newDish.description());
         if(newDish.name() != null) toUpdate.setName(newDish.name());
-        if(newDish.price() == null || newDish.price()<0) throw new IllegalArgumentException("Price cannot be negative");
-        toUpdate.setPrice(newDish.price());
+        if(newDish.price() != null){
+            if(newDish.price()>=0) toUpdate.setPrice(newDish.price());
+            else throw new IllegalArgumentException("Price cannot be negative");
+        }
         return repository.save(toUpdate);
 
     }
@@ -53,13 +55,13 @@ public class DishService {
     }
 
     public List<Dish> getDishesByRestaurantId(Long id) {
-        Optional<Restaurant> rest = restService.getRestaurantById(id);
-        if(!rest.isPresent()){
-            return null;
-        }
-        Restaurant restaurant = rest.get();
-        return restaurant.getDishes();
-
+//        Optional<Restaurant> rest = restService.getRestaurantById(id);
+//        if(!rest.isPresent()){
+//            return null;
+//        }
+//        Restaurant restaurant = rest.get();
+//        return restaurant.getDishes();
+        return repository.getDishesByRestaurantId(id);
 
     }
 }

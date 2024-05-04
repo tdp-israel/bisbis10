@@ -1,6 +1,5 @@
 package com.att.tdp.bisbis10.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
