@@ -18,15 +18,24 @@ public class RatingService {
     RestaurantService restaurantService;
 
     public void addRating(RatingDTO rating) {
+
+        if(!isRatingValid(rating.rating())) return;
         Restaurant rest = restaurantService.getRestaurantById(rating.restaurantId()).orElse(null);
         if (rest == null) return;
         Rating r = new Rating();
         r.setRating(rating.rating());
         r.setRestaurant(rest);
         ratingRepository.save(r);
-        Float avgRating = ratingRepository.getAverageRating(rating.restaurantId());
-        rest.setRating(avgRating);
-        restaurantService.editRestaurant(rating.restaurantId(), new RestaurantDTO(null, null, rest.getRating(), null, null));
+        editRestaurantAvgRating(rating.restaurantId());
+    }
 
+    private boolean isRatingValid(Float rating){
+        return rating >= 1 && rating <= 5;
+    }
+
+    private void editRestaurantAvgRating(Long restId){
+        DecimalFormat decimalFormat = new DecimalFormat("0.##");
+        Float avgRating = Float.valueOf(decimalFormat.format(ratingRepository.getAverageRating(restId));
+        restaurantService.editRestaurant(restId, new RestaurantDTO(null, null, avgRating, null, null));
     }
 }
