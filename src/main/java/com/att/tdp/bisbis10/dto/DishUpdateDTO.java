@@ -4,9 +4,12 @@ import jakarta.annotation.Nonnull;
 
 public class DishUpdateDTO {
 
+
+
     private final String name;
 
     private final String description;
+
 
     private final Double price;
 

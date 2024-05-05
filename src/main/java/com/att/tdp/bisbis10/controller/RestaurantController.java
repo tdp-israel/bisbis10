@@ -8,6 +8,7 @@ import com.att.tdp.bisbis10.entitys.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,10 +56,10 @@ public class RestaurantController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<Void> createRestaurant(@RequestBody RestaurantDTO restaurant)
+    ResponseEntity<Void> createRestaurant(@RequestBody @Valid RestaurantDTO restaurant)
     {
         restaurantService.createRestaurant(restaurant);
-         return ResponseEntity.noContent().build();
+         return ResponseEntity.ok().build();
     }
     @PutMapping("/{id}")
     ResponseEntity<Void> updateRestaurant(@PathVariable Long id, @RequestBody RestaurantUpdateDTO restaurantUpdateDTO)

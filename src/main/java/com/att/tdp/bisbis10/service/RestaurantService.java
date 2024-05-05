@@ -1,6 +1,6 @@
 package com.att.tdp.bisbis10.service;
 
-import com.att.tdp.bisbis10.controller.ResourceNotFoundException;
+import com.att.tdp.bisbis10.execption.ResourceIDNotFoundException;
 import com.att.tdp.bisbis10.dto.RestaurantDTO;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateDTO;
 import com.att.tdp.bisbis10.dto.RestaurantWithDishDTO;
@@ -72,12 +72,7 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurantIfExist(long id) {
-        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
-        if (!restaurant.isPresent()) {
-            throw new ResourceNotFoundException("Restaurant not found with id: " + id);
-        }
-        return restaurant.get();
-
+        return restaurantRepository.findById(id).orElseThrow(() ->  new ResourceIDNotFoundException("Restaurant", id));
     }
 
 

@@ -1,15 +1,17 @@
 package com.att.tdp.bisbis10.dto;
 
 import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotNull;
 
 public class RestaurantDTO {
-    @Nonnull
+    @NotNull(message = "name field is required")
     final String name;
 
-    @Nonnull
+    @NotNull(message = "isKosher field is required")
     final boolean isKosher;
 
-    @Nonnull
+    @NotNull(message = "cuisines array field is required")
+
     final String[] cuisines;
 
 

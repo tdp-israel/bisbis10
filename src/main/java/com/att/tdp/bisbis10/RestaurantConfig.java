@@ -27,9 +27,9 @@ public class RestaurantConfig {
 
             return args -> {
                 if (restaurantRepository.findAll().size()==0) {
-                    Restaurant japanika = new Restaurant("Japanika", true, Set.of(Cuisine.ASIAN));
+                    Restaurant japanika = new Restaurant("Japanika", true, Set.of(Cuisine.Asian));
                     Restaurant taizu = new Restaurant("Taizu", false,
-                            Set.of(Cuisine.ASIAN, Cuisine.MEXICAN, Cuisine.INDIAN));
+                            Set.of(Cuisine.Asian, Cuisine.Mexican, Cuisine.Indian));
                     restaurantRepository.saveAll(List.of(japanika, taizu));
                 }
             };
