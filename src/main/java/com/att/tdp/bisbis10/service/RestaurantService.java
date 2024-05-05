@@ -1,7 +1,9 @@
 package com.att.tdp.bisbis10.service;
 
+import com.att.tdp.bisbis10.controller.ResourceNotFoundException;
 import com.att.tdp.bisbis10.dto.RestaurantDTO;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateDTO;
+import com.att.tdp.bisbis10.dto.RestaurantWithDishDTO;
 import com.att.tdp.bisbis10.entitys.Cuisine;
 import com.att.tdp.bisbis10.entitys.Restaurant;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
@@ -32,8 +34,11 @@ public class RestaurantService {
         return restaurantRepository.findByCuisinesIn(cuisineSet);
     }
 
-    public Optional<Restaurant> getRestaurantById(long id) {
-        return restaurantRepository.findById(id);
+    public RestaurantWithDishDTO getRestaurantById(long id) {
+        Restaurant restaurant =getRestaurantIfExist(id);
+
+
+       return  new  RestaurantWithDishDTO(restaurant);
     }
 
     public Restaurant createRestaurant(RestaurantDTO restaurantDTO) {
@@ -46,7 +51,7 @@ public class RestaurantService {
     }
 
     public Restaurant updateRestaurant(long id, RestaurantUpdateDTO restaurantUpdateDTO) {
-        Restaurant restaurant = restaurantRepository.findById(id).get();
+        Restaurant restaurant =getRestaurantIfExist(id);
         updateRestaurant(restaurant, restaurantUpdateDTO);
 
         return restaurantRepository.save(restaurant);
@@ -61,11 +66,19 @@ public class RestaurantService {
         updateCuisine(restaurant, restaurantUpdateDTO);
     }
 
-    public boolean deleteRestaurant(long id) {
+    public void deleteRestaurant(long id) {
+        getRestaurantIfExist(id);
         restaurantRepository.deleteById(id);
-        return true;
     }
 
+    public Restaurant getRestaurantIfExist(long id) {
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if (!restaurant.isPresent()) {
+            throw new ResourceNotFoundException("Restaurant not found with id: " + id);
+        }
+        return restaurant.get();
+
+    }
 
 
     private  void updateCuisine(Restaurant restaurant, RestaurantUpdateDTO restaurantUpdateDTO) {

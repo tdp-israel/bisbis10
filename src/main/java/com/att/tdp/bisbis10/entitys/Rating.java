@@ -7,17 +7,33 @@ import jakarta.persistence.*;
 @Table(name = "rating")
 public class Rating {
     @Id
-    @GeneratedValue
-            (
-                    strategy = GenerationType.IDENTITY
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
             )
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurantId;
+    private Restaurant restaurant;
 
 
     @Column(name = "rate",nullable = false)
     private int rate;
+
+    public Rating(Restaurant restaurant, int rate) {
+        this.restaurant = restaurant;
+        this.rate = rate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public int getRate() {
+        return rate;
+    }
 }

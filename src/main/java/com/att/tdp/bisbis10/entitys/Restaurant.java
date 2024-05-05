@@ -1,7 +1,9 @@
 package com.att.tdp.bisbis10.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.text.DecimalFormat;
 import java.util.Set;
 
 @Entity(name = "restaurant ")
@@ -10,12 +12,12 @@ public class Restaurant {
     @Id
     @GeneratedValue
             (
-            strategy = GenerationType.IDENTITY
+                    strategy = GenerationType.IDENTITY
             )
     private Long id;
-    @Column(name = "restaurant_name",nullable = false,length = 60)
+    @Column(name = "restaurant_name", nullable = false, length = 60)
     private String name;
-    @Column(name = "is_kosher",nullable = false)
+    @Column(name = "is_kosher", nullable = false)
     private Boolean isKosher;
 
     @ElementCollection(targetClass = Cuisine.class)
@@ -23,15 +25,21 @@ public class Restaurant {
     @CollectionTable(name = "restaurant_cuisines", joinColumns = @JoinColumn(name = "restaurant_id"))
     private Set<Cuisine> cuisines;
 
-    @OneToMany(mappedBy = "restaurantId", cascade = CascadeType.ALL , orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Dish> dishes;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Rating> ratings;
+
     @Transient
-    private double rating;
+    private double averageRating;
 
 
     public Restaurant() {
     }
+
     public Restaurant(String name, Boolean isKosher, Set<Cuisine> cuisines) {
         this.name = name;
         this.isKosher = isKosher;
@@ -39,14 +47,10 @@ public class Restaurant {
     }
 
 
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -81,10 +85,12 @@ public class Restaurant {
     }
 
     public double getRating() {
-        return rating;
+        double sum = 0;
+        for (Rating rating : this.ratings) {
+            sum += rating.getRate();
+        }
+
+        return Math.floor(sum / ratings.size()) / 100;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
 }
