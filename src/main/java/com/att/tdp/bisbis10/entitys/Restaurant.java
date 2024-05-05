@@ -3,7 +3,7 @@ package com.att.tdp.bisbis10.entitys;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.text.DecimalFormat;
+
 import java.util.Set;
 
 @Entity(name = "restaurant ")
@@ -34,7 +34,7 @@ public class Restaurant {
     private Set<Rating> ratings;
 
     @Transient
-    private double averageRating;
+    private Double averageRating;
 
 
     public Restaurant() {
@@ -84,10 +84,10 @@ public class Restaurant {
         this.dishes = dishes;
     }
 
-    public double getRating() {
-        if(ratings.size()==0)
+    public Double getRating() {
+        if(ratings.isEmpty())
         {
-            return 0;
+            return null;
         }
         double sum = 0;
         for (Rating rating : this.ratings) {
