@@ -4,6 +4,7 @@ import com.att.tdp.bisbis10.dto.DishDTO;
 import com.att.tdp.bisbis10.dto.DishUpdateDTO;
 import com.att.tdp.bisbis10.entitys.Dish;
 import com.att.tdp.bisbis10.entitys.Restaurant;
+import com.att.tdp.bisbis10.execption.ResourceIDNotFoundException;
 import com.att.tdp.bisbis10.repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class DishService {
     }
 
     private Dish getDishIfExist( Long dishID) {
-         return dishRepository.findById(dishID).orElseThrow(() -> new IllegalStateException("Dish with id " + dishID + " does not exist"));
+         return dishRepository.findById(dishID).orElseThrow(() -> new ResourceIDNotFoundException("Dish",  dishID ));
     }
 
     public void updateDish(Long restaurantID, Long dishID, DishUpdateDTO dishUpdateDTO) {

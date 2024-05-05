@@ -1,12 +1,16 @@
 package com.att.tdp.bisbis10.dto;
 
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public class RatingDTO {
 
-    @Nonnull
+    @NotNull(message = "restaurantid field is required")
     private final long restaurantId;
-    @Nonnull
+    @NotNull(message = "rating field is required")
+    @Min(1)
+    @Max(5)
     private final double rating;
 
 
