@@ -3,10 +3,14 @@ package com.att.tdp.bisbis10.controller;
 
 import com.att.tdp.bisbis10.dto.RestaurantDTO;
 import com.att.tdp.bisbis10.dto.RestaurantUpdateDTO;
+import com.att.tdp.bisbis10.dto.RestaurantWithDishDTO;
 import com.att.tdp.bisbis10.entitys.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 
@@ -43,16 +47,10 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable Long id) {
-        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
-        if (restaurant.isPresent())
-        {
-            return ResponseEntity.ok(restaurant.get());
-        }
-        else
-        {
-            throw new ResourceNotFoundException("Restaurant not found with id: " + id);
-        }
+    public ResponseEntity<RestaurantWithDishDTO> getRestaurantById(@PathVariable Long id) {
+        RestaurantWithDishDTO restaurantWithDishDTO = restaurantService.getRestaurantById(id);
+        return new ResponseEntity<>(restaurantWithDishDTO, HttpStatus.OK);
+
     }
 
     @PostMapping()
