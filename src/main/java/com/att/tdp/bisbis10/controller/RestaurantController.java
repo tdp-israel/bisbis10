@@ -19,9 +19,6 @@ public class RestaurantController {
     @Autowired
     private RestaurantService service;
 
-    @Autowired
-    private RatingService ratingService;
-
     @GetMapping
     ResponseEntity<List<?>> getRestaurants(@RequestParam(name = "cuisine", required = false) String cuisine){
         try{
@@ -58,7 +55,6 @@ public class RestaurantController {
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteRestaurant(@PathVariable Long id){
         try{
-//            ratingService.deleteByRestaurantId(id);
             service.deleteRestaurant(id);
             return ResponseEntity.status(204).body(null);
         } catch(Exception e){
