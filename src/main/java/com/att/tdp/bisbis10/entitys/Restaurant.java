@@ -85,12 +85,16 @@ public class Restaurant {
     }
 
     public double getRating() {
+        if(ratings.size()==0)
+        {
+            return 0;
+        }
         double sum = 0;
         for (Rating rating : this.ratings) {
             sum += rating.getRate();
         }
-
-        return Math.floor(sum / ratings.size()) / 100;
+        double avg=sum / ratings.size();
+        return Double.parseDouble(String.format("%.2f",avg));
     }
 
 }

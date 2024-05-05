@@ -1,4 +1,4 @@
-package com.att.tdp.bisbis10.service;
+package com.att.tdp.bisbis10.repository;
 
 
 import com.att.tdp.bisbis10.entitys.Rating;

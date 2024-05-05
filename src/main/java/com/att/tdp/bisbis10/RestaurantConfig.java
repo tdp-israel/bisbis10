@@ -3,10 +3,11 @@ package com.att.tdp.bisbis10;
 
 import com.att.tdp.bisbis10.entitys.Cuisine;
 import com.att.tdp.bisbis10.entitys.Dish;
+import com.att.tdp.bisbis10.entitys.Rating;
 import com.att.tdp.bisbis10.entitys.Restaurant;
 import com.att.tdp.bisbis10.repository.DishRepository;
 import com.att.tdp.bisbis10.repository.RestaurantRepository;
-import com.att.tdp.bisbis10.service.RatingRepository;
+import com.att.tdp.bisbis10.repository.RatingRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,6 +58,18 @@ public class RestaurantConfig {
     {
 
         return args -> {
+            if(ratingRepository.findAll().size()==0) {
+                Restaurant japanika = restaurantRepository.findById(1L).get();
+                Restaurant taizu = restaurantRepository.findById(2L).get();
+                Rating japanikaRateOne = new Rating(4, japanika);
+                Rating japanikaRateTwo = new Rating(3, japanika);
+                Rating taizuRateOne = new Rating(5, taizu);
+                Rating taizuRateTwo = new Rating(4, taizu);
+                Rating taizuRateThree = new Rating(3, taizu);
+                ratingRepository.saveAll(List.of(japanikaRateOne, japanikaRateTwo, taizuRateOne, taizuRateTwo, taizuRateThree));
+
+
+            }
 
 
         };

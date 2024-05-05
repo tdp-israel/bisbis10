@@ -18,11 +18,14 @@ public class Rating {
 
 
     @Column(name = "rate",nullable = false)
-    private int rate;
+    private double rate;
 
-    public Rating(Restaurant restaurant, int rate) {
+    public Rating( double rate,Restaurant restaurant) {
         this.restaurant = restaurant;
         this.rate = rate;
+    }
+
+    public Rating() {
     }
 
     public Long getId() {
@@ -33,7 +36,7 @@ public class Rating {
         return restaurant;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 }
