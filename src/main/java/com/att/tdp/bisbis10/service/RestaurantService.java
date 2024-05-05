@@ -74,6 +74,9 @@ public class RestaurantService {
     public Restaurant getRestaurantIfExist(long id) {
         return restaurantRepository.findById(id).orElseThrow(() ->  new ResourceIDNotFoundException("Restaurant", id));
     }
+    public void saveRestaurant(Restaurant restaurant) {
+        restaurantRepository.save(restaurant);
+    }
 
 
     private  void updateCuisine(Restaurant restaurant, RestaurantUpdateDTO restaurantUpdateDTO) {
