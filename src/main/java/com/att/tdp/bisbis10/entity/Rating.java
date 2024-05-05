@@ -40,4 +40,6 @@ public class Rating {
     public Long getId() {
         return id;
     }
+
+
 }

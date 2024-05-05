@@ -15,12 +15,17 @@ public class RestaurantService {
     private RestaurantRepository repository;
 
     private RestaurantDTO restaurantToDTO_without_dishes(Restaurant restaurant){
-        return new RestaurantDTO(restaurant.getId(), restaurant.getName(), restaurant.getRating(), restaurant.getIsKosher(), restaurant.getCuisines());
+        return new RestaurantDTO(
+                restaurant.getId(),
+                restaurant.getName(),
+                restaurant.getAvgRating(),
+                restaurant.getIsKosher(),
+                restaurant.getCuisines()
+        );
     }
 
     public List<RestaurantDTO> getAllRestaurants() {
-        List<Restaurant> all = repository.findAll();
-        return all.stream().map(this::restaurantToDTO_without_dishes).toList();
+        return repository.findAll().stream().map(this::restaurantToDTO_without_dishes).toList();
     }
 
     public Optional<Restaurant> getRestaurantById(Long id) {
