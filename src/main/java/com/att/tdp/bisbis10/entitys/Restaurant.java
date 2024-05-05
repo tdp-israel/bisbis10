@@ -37,6 +37,17 @@ public class Restaurant {
     private Double averageRating;
 
 
+
+    @JsonIgnore
+    @Column(name = "total_rate", nullable = false)
+    private Double totalRate;
+
+
+    @JsonIgnore
+    @Column(name = "amount_of_rate", nullable = false)
+    private Integer numberOfRates;
+
+
     public Restaurant() {
     }
 
@@ -44,6 +55,8 @@ public class Restaurant {
         this.name = name;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
+        numberOfRates=0;
+        totalRate=0.0;
     }
 
 
@@ -85,16 +98,37 @@ public class Restaurant {
     }
 
     public Double getRating() {
-        if(ratings.isEmpty())
-        {
+        if (this.numberOfRates == 0) {
             return null;
         }
-        double sum = 0;
-        for (Rating rating : this.ratings) {
-            sum += rating.getRate();
-        }
-        double avg=sum / ratings.size();
+        double avg=this.totalRate /this.numberOfRates;
         return Double.parseDouble(String.format("%.2f",avg));
+
+//        if(ratings.isEmpty())
+//        {
+//            return null;
+//        }
+//        double sum = 0;
+//        for (Rating rating : this.ratings) {
+//            sum += rating.getRate();
+//        }
+//        double avg=sum / ratings.size();
+//        return Double.parseDouble(String.format("%.2f",avg));
     }
 
+    public Double getTotalRate() {
+        return totalRate;
+    }
+
+    public void addToTotalRate(Double totalRate) {
+        this.totalRate += totalRate;
+    }
+
+    public Integer getNumberOfRates() {
+        return numberOfRates;
+    }
+
+    public void increaseNumberOfRates(Integer numberOfRates) {
+        this.numberOfRates += numberOfRates;
+    }
 }

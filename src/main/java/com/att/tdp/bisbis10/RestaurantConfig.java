@@ -22,25 +22,24 @@ public class RestaurantConfig {
 
     @Bean
     @Order(1)
-    CommandLineRunner addingRestaurant(RestaurantRepository restaurantRepository)
-    {
-
-            return args -> {
-                if (restaurantRepository.findAll().size()==0) {
-                    Restaurant japanika = new Restaurant("Japanika", true, Set.of(Cuisine.Asian));
-                    Restaurant taizu = new Restaurant("Taizu", false,
-                            Set.of(Cuisine.Asian, Cuisine.Mexican, Cuisine.Indian));
-                    restaurantRepository.saveAll(List.of(japanika, taizu));
-                }
-            };
-    }
-    @Bean
-    @Order(2)
-    CommandLineRunner addingDish(DishRepository dishRepository,RestaurantRepository restaurantRepository)
-    {
+    CommandLineRunner addingRestaurant(RestaurantRepository restaurantRepository) {
 
         return args -> {
-            if(dishRepository.findAll().size()==0) {
+            if (restaurantRepository.findAll().size() == 0) {
+                Restaurant japanika = new Restaurant("Japanika", true, Set.of(Cuisine.Asian));
+                Restaurant taizu = new Restaurant("Taizu", false,
+                        Set.of(Cuisine.Asian, Cuisine.Mexican, Cuisine.Indian));
+                restaurantRepository.saveAll(List.of(japanika, taizu));
+            }
+        };
+    }
+
+    @Bean
+    @Order(2)
+    CommandLineRunner addingDish(DishRepository dishRepository, RestaurantRepository restaurantRepository) {
+
+        return args -> {
+            if (dishRepository.findAll().size() == 0) {
                 Restaurant japanika = restaurantRepository.findById(1L).get();
                 Restaurant taizu = restaurantRepository.findById(2L).get();
                 Dish noodles = new Dish("Noodle", "Amazing one", 59, japanika);
@@ -52,26 +51,28 @@ public class RestaurantConfig {
 
         };
     }
+
     @Bean
     @Order(3)
-    CommandLineRunner addingRating(RestaurantRepository restaurantRepository, RatingRepository ratingRepository)
-    {
+    CommandLineRunner addingRating(RestaurantRepository restaurantRepository, RatingRepository ratingRepository) {
 
         return args -> {
-            if(ratingRepository.findAll().size()==0) {
+            if (ratingRepository.findAll().size() == 0) {
                 Restaurant japanika = restaurantRepository.findById(1L).get();
                 Restaurant taizu = restaurantRepository.findById(2L).get();
-                Rating japanikaRateOne = new Rating(4, japanika);
-                Rating japanikaRateTwo = new Rating(3, japanika);
-                Rating taizuRateOne = new Rating(5, taizu);
-                Rating taizuRateTwo = new Rating(4, taizu);
-                Rating taizuRateThree = new Rating(3, taizu);
-                ratingRepository.saveAll(List.of(japanikaRateOne, japanikaRateTwo, taizuRateOne, taizuRateTwo, taizuRateThree));
-
+                ratingRepository.saveAll(List.of(createRating(4.0, japanika), createRating(3.0, japanika),
+                        createRating(3.0, taizu), createRating(4.0, taizu), createRating(5.0, taizu)));
+                restaurantRepository.saveAll(List.of(japanika, taizu));
 
             }
-
-
         };
     }
+
+    private Rating createRating(double rate, Restaurant restaurant) {
+        Rating rating = new Rating(rate, restaurant);
+        restaurant.increaseNumberOfRates(1);
+        restaurant.addToTotalRate(rate);
+        return rating;
+    }
+
 }
