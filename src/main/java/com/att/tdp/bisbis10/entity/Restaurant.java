@@ -12,7 +12,6 @@ import java.util.List;
 public class Restaurant {
     private @Id @GeneratedValue Long id;
     private String name;
-//    private float rating;
     private boolean isKosher;
     @ElementCollection
     private List<String> cuisines;
@@ -56,14 +55,6 @@ public class Restaurant {
         this.name = name;
     }
 
-//    public float getRating() {
-//        return rating;
-//    }
-//
-//    public void setRating(float rating) {
-//        this.rating = rating;
-//    }
-
     public boolean getIsKosher() {
         return isKosher;
     }
@@ -80,8 +71,8 @@ public class Restaurant {
         this.cuisines = new ArrayList<>(cuisines);
     }
 
-    @JsonGetter("rating")
-    public Double getAvgRating() {
+    @JsonGetter("averageRating")
+    public Double getAverageRating() {
         Double sum = 0.0;
         DecimalFormat decimalFormat = new DecimalFormat("0.#");
         if(ratings==null || ratings.size()==0) return sum;

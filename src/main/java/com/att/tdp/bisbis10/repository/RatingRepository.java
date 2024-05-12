@@ -13,8 +13,4 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Query("SELECT AVG(r.rating) FROM Rating r WHERE r.restaurant.id = :id")
     Float getAverageRating(@Param("id") Long restaurantId);
 
-//    @Modifying
-//    @Transactional
-//    @Query("DELETE FROM Rating r WHERE r.restaurant.id = :restaurantId")
-//    void deleteByRestaurantId(@Param("restaurantId") Long restId);
 }

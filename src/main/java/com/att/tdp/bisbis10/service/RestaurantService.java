@@ -18,7 +18,7 @@ public class RestaurantService {
         return new RestaurantDTO(
                 restaurant.getId(),
                 restaurant.getName(),
-                restaurant.getAvgRating(),
+                restaurant.getAverageRating(),
                 restaurant.getIsKosher(),
                 restaurant.getCuisines()
         );

@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
 
 @Service
 public class OrderService {
@@ -35,8 +34,6 @@ public class OrderService {
         List<Long> restDishes = rest.getDishes().stream().map(Dish::getId).toList();
         for(OrderItemDTO orderItemDto : orderDto.orderItems() ){
             if(orderItemDto.dishId() == null || !restDishes.contains(orderItemDto.dishId())) return null;
-//            if(restDishes.stream().noneMatch(dishId-> Objects.equals(dishId, orderItemDto.dishId()))) return null;
-//            if(orderItemDto.dishId()==null) return null;
 
             OrderItem orderItem = orderItemFromOrderItemDto(orderItemDto);
             orderItem.setOrder(order);

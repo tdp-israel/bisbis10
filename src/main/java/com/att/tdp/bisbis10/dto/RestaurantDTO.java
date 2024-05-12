@@ -7,7 +7,7 @@ import java.util.List;
 public record RestaurantDTO(
         Long id,
         String name,
-        Double rating,
+        Double averageRating,
         Boolean isKosher,
         @ElementCollection
         List<String> cuisines) {
