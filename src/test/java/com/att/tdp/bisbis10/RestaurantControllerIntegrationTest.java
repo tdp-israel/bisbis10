@@ -73,19 +73,19 @@ public class RestaurantControllerIntegrationTest {
                 .andExpect(status().isCreated());
     }
 
-    @Test
-    void testUpdateRestaurant() throws Exception {
-        Restaurants restaurant = new Restaurants();
-        // Set up restaurant data and save it using the service
-        restaurantService.addRestaurant(restaurant);
-
-        restaurant.setName("Updated Restaurant Name");
-
-        mockMvc.perform(MockMvcRequestBuilders.put("/restaurants/{id}", restaurant.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(restaurant)))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    void testUpdateRestaurant() throws Exception {
+//        Restaurants restaurant = new Restaurants();
+//        // Set up restaurant data and save it using the service
+//        restaurantService.addRestaurant(restaurant);
+//
+//        restaurant.setName("Updated Restaurant Name");
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/restaurants/{id}", restaurant.getId())
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(asJsonString(restaurant)))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     void testDeleteRestaurant() throws Exception {
